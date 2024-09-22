@@ -1,14 +1,16 @@
-const express = require('express');
-const cors = require('cors');
-const http = require('http');
-const connectToMongo = require('./db');
+
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { connectToMongo } from './db.js';
+import { router } from './routes/auth.js';
 const app = express();
 
-
-app.set('view engine','ejs')
+dotenv.config();
+app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-const PORT = process.env.PORT || 8181;
+const PORT = process.env.PORT;
 
 
 // Middleware
@@ -19,15 +21,13 @@ app.use(cors());
 connectToMongo();
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', router);
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+  res.send('Hello World!');
 });
 
-
-
-  // Start the server
+// Start the server
 app.listen(PORT, () => {
-console.log(`Server is running on port http://localhost:${PORT}`);
+  console.log(`Server is running on port http://localhost:${PORT}`);
 });

@@ -1,14 +1,15 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Health Appointment systems",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gemechu Adam",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
