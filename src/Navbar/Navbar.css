@@ -1,0 +1,73 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #9E515F;
+    color: #fff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+    font-size: 1.2rem;
+}
+
+.app-logo {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+}
+
+.app-header ul {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+}
+
+.app-header ul li {
+    text-wrap: nowrap;
+    padding: .5rem;
+}
+
+.app-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.nav-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: .85rem;
+
+}
+
+.nav-menu span {
+    background-color: #eee7e8;
+    border-radius: .5rem;
+    min-width: 4rem;
+    min-height: .45rem;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-primary {
+    background-color: #090de2;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-wrap: nowrap;
+}
