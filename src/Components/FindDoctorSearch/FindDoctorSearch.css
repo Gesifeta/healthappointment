@@ -1,0 +1,89 @@
+.app__doctor-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    max-width: 50%;
+}
+
+.app__doctor-search .form-group.search {
+    display: flex;
+    width: 100%;
+}
+
+.form-group.search input {
+    min-width: 90%;
+}
+
+.app__doctor-search img {
+    background-color: #eee8e8;
+    padding: .25rem;
+    margin-left: -2px;
+}
+
+.app__doctor-search--list {
+    margin: 12px 6px;
+    width: 100%;
+    border: 1px solid #d4d4d4;
+    row-gap: 1rem;
+    padding-right: 1rem;
+}
+
+.list-item {
+    display: flex;
+    flex-direction: column;
+    row-gap: .25rem;
+
+}
+
+.specialty-list:nth-of-type(even) {
+    background-color: rgb(228, 236, 236);
+}
+
+.specialty-list {
+    display: flex;
+    padding: .12rem;
+    justify-content: ;
+    justify-content: space-between;
+    text-align: left;
+    border-bottom: 1px solid #d4d4d4;
+    cursor: pointer;
+}
+
+.specialty-list:hover {
+    background-color: blanchedalmond;
+}
+
+.specialty-list>div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.doctor-card {
+    max-width: 25rem;
+    min-height: 430;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #d4d4d4;
+    border-radius: 10px;
+    padding: .25rem;
+}
+
+.doctor-card img {
+    width: 100%;
+    min-height: 275px;
+}
+
+.app__doctor-search--card {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.doctor-card .btn-group {
+    min-width: 100%;
+}

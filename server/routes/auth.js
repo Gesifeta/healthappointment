@@ -55,6 +55,7 @@ router.post('/register', [
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
         const newUser = await UserSchema.create({
+            role: req.body.role,
             email: req.body.email,
             name: req.body.name,
             password: hash,
@@ -90,7 +91,7 @@ router.post('/login', [
 
     try {
         const theUser = await UserSchema.findOne({ email: req.body.email }); // <-- Change req.body.username to req.body.name
-       
+
         if (theUser) {
             let checkHash = await bcrypt.compare(req.body.password, theUser.password);
             if (checkHash) {
@@ -216,6 +217,16 @@ router.put('/user', [
 
         const authtoken = jwt.sign(payload, process.env.JWT_SECRET);
         res.json({ authtoken });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//search doctors
+router.get('/search', async (req, res) => {
+    try {
+        const doctors = await UserSchema.find({ role: "doctor" });
+        return res.json(doctors);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");

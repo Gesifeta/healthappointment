@@ -1,9 +1,9 @@
 
-import mongoose from "mongoose"; 
+import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 export const userSchema = new Schema({
-    email: { 
+    email: {
         type: String,
         required: true,
     },
@@ -15,10 +15,28 @@ export const userSchema = new Schema({
         type: String,
         required: true,
     },
-    phone:{
+    phone: {
+        type: String,
+        required: true,
+    },
+    experience: {
+        type: Number,
+        required: true,
+    },
+    qualification: {
+        type: String,
+        required: true,
+    },
+    role: {
         type: String,
         required: true,
     }
-}, {timestamps: true});
+    ,
+    image: {
+        type: String,
+        required: false,
+    }
+
+}, { timestamps: true });
 
 export const UserSchema = mongoose.model('user', userSchema);

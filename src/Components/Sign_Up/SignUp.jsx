@@ -12,6 +12,7 @@ const SignUp = () => {
   //create state for form
   const [member, setMember] = useState({
     id: uuid(),
+    role: "",
     name: "",
     email: "",
     phone: "",
@@ -69,6 +70,36 @@ const SignUp = () => {
         <div className="signup-form">
           <form method="POST" onSubmit={handleSubmit} >
             <div className="form-group">
+              {/* Role */}
+              <label htmlFor="role">Role</label>
+              <select name="role" id="role" required className="form-control" aria-describedby="helpId"
+                onChange={handleInput}
+              >
+                <option value="select" >Select Role</option>
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+              </select>
+            </div>
+            {member.role === "doctor" ? (
+              <>
+                <div className="form-group">
+                  <label htmlFor="specialization">Specialization</label>
+                  <input type="text" name="specialization" id="specialization" required className="form-control" placeholder="Enter your specialization" aria-describedby="helpId"
+                    onChange={handleInput} />
+                </div>
+                {/* expreince */}
+                <div className="form-group">
+                  <label htmlFor="experience">Experience</label>
+                  <input type="number" name="experience" id="experience" required className="form-control" placeholder="Enter your experience" aria-describedby="helpId"
+                    onChange={(e) => {
+                      return { ...e, [e.target.name]: e.target.value }
+                    }} />
+                </div>
+              </>
+            ) : (
+              null
+            )}
+            <div className="form-group">
               <label htmlFor="name">Name</label>
               <input type="text" name="name" id="name" required className="form-control" placeholder="Enter your name" aria-describedby="helpId"
                 onChange={handleInput}
@@ -83,7 +114,7 @@ const SignUp = () => {
               <label htmlFor="email">Email</label>
               <input type="email" name="email" id="email" required className="form-control" placeholder="Enter your email" aria-describedby="helpId"
                 onChange={handleInput} />
-                {showErr ? <div className="error" style={{ color: "red" }}>{showErr}</div> : null}
+              {showErr ? <div className="error" style={{ color: "red" }}>{showErr}</div> : null}
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>

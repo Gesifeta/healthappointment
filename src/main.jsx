@@ -6,6 +6,7 @@ import App from './App.jsx'
 import './index.css'
 import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/Sign_Up/SignUp.jsx'
+import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch.jsx'
 
 //create routes
 
@@ -13,49 +14,35 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <SignUp/>,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <SignUp />,
+      },
+      {
+        path: "/search",
+        element: <FindDoctorSearch />
+      },
+      {
+        path: "/profile",
+        element: <h1>Profile</h1>
+      },
+      {
+        path: "/chat",
+        element: <h1>Chat</h1>
+      }
+
+    ],
   },
 
-  {
-    path: "/user/:id",
-    element: <App />,
-  },
-  {
-    path: "/user/:id/edit",
-    element: <App />,
-  },
-  {
-    path: "/user/:id/destroy",
-    element: <App />,
-  },
-  {
-    path: "/contact",
-    element: <App />,
-  },
-  {
-    path: "/projects",
-    element: <App />,
-  },
-  {
-    path: "/resume",
-    element: <App />,
-  },
-  {
-    path: "*",
-    element: <App />,
-  },
-  
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
- <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </StrictMode>,
 )
