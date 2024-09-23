@@ -232,3 +232,14 @@ router.get('/search', async (req, res) => {
         return res.status(500).send("Internal Server Error");
     }
 });
+//fetch user by name
+router.get('/appointment/:email', async (req, res) => {
+
+    try {
+        const doctors = await UserSchema.find({ email: req.params.email });
+        return res.json(doctors);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});

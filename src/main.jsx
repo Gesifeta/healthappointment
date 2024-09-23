@@ -7,6 +7,7 @@ import './index.css'
 import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/Sign_Up/SignUp.jsx'
 import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch.jsx'
+import AppointmentForm from './Components/AppointmentForm/AppointmentForm.jsx'
 
 //create routes
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <FindDoctorSearch />
+      },
+      {
+        path: "/appointment/:email",
+        element: <AppointmentForm />
       },
       {
         path: "/profile",

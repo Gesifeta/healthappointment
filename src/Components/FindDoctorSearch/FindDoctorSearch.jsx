@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { images } from "../../assets"
 import "./FindDoctorSearch.css"
 import { API_URL } from "../../config"
 
 const FindDoctorSearch = () => {
+    const navigate = useNavigate()
     const [isSearch, setIsSearch] = useState(false)
     const [specialties, setSpecialties] = useState([])
     const [doctors, setDoctors] = useState([])
@@ -45,7 +47,8 @@ const FindDoctorSearch = () => {
             <div className="form-group search">
                 <input type="search" className="form-control" placeholder="Search for doctor, clinics, hospitals, etc."
                     aria-label="Search" aria-describedby="basic-addon2"
-                    onChange={(event)=>{handleSpecialtySearch(event)
+                    onChange={(event) => {
+                        handleSpecialtySearch(event)
                         setSearchText(event.target.value)
 
                     }
@@ -92,8 +95,9 @@ const FindDoctorSearch = () => {
                         <h4>{doctor.specialty}</h4>
                         <p>{doctor.experience} of experiences.</p>
                         <div className="btn-group">
-
-                            <button className=" btn-primary">Book Appointment free</button>
+                            <button className=" btn-primary"
+                                onClick={() => navigate(`/appointment/${doctor.email}`, { replace: true })}
+                            >Book Appointment Free</button>
                         </div>
                     </div>
                 ))}
