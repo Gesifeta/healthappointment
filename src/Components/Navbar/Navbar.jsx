@@ -1,7 +1,14 @@
+import { useNavigate } from "react-router-dom"
 import { images } from "../../assets"
 import './Navbar.css'
+import { useState } from "react"
 
 const Navbar = () => {
+    const [authToken, setAuthToken] = useState(
+        sessionStorage.getItem("auth-token"))
+    const name=sessionStorage.getItem("name")
+        console.log(authToken);
+    const navigate = useNavigate();
     return (
         <header className="app-header">
             <a href="#"><img src={images.logoColor} alt="loyo logo" className="app-logo" /></a>
@@ -14,19 +21,25 @@ const Navbar = () => {
                         <a href="#" className="link-item">Home</a>
                     </li>
                     <li>
-                        <a href="#" className="link-item">Appointments</a>
+                        <a href="#appointments" className="link-item">Appointments</a>
                     </li>
                     <li>
-                        <a href="#" className="link-item">Health Blogs</a>
+                        <a href="#healthblogs" className="link-item">Health Blogs</a>
                     </li>
                     <li>
-                        <a href="#" className="link-item">Reviews</a>
+                        <a href="#reviews" className="link-item">Reviews</a>
                     </li>
                     <li>
-                        <a href="../Sign_up/Sign_Up.html" className="link-item btn-primary">Sign Up</a>
+
+                        {authToken ? <a className="link-item profile" onClick={() => navigate("/profile", { replace: true })}>Welcome, {name}</a> : <a className="link-item btn-primary" onClick={() => navigate("/register", { replace: true })}>Sign Up</a>}
                     </li>
                     <li>
-                        <a href="../Login/Login.html" className="link-item btn-primary">Log In</a>
+                        {authToken ? <a className="link-item btn-primary" onClick={() => {
+                            sessionStorage.clear();
+                            setAuthToken(null);
+                            window.location.reload();
+                            navigate("/", { replace: true })
+                        }}>Logout</a> : <a className="link-item btn-primary" onClick={() => navigate("/login", { replace: true })}>Log In</a>}
                     </li>
                 </ul>
             </nav>

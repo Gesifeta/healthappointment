@@ -8,8 +8,9 @@ import { body, validationResult } from 'express-validator';
 
 import { UserSchema } from '../models/User.js';
 
-export const router = express.Router();
 dotenv.config();
+export const router = express.Router();
+
 
 router.use(session({
     secret: 'keyboard cat',
@@ -41,7 +42,6 @@ router.post('/register', [
     body('password', "Password Should Be At Least 8 Characters.").isLength({ min: 8 }),
     body('phone', "Phone Number Should Be 10 Digits.").isLength({ min: 10 }),
 ], async (req, res) => {
-
     const error = validationResult(req);
     if (!error.isEmpty()) {
         return res.status(400).json({ error: error.array() });
@@ -52,10 +52,8 @@ router.post('/register', [
         if (checkMultipleUser1) {
             return res.status(403).json({ error: "A User with this email address already exists" });
         }
-
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
-
         const newUser = await UserSchema.create({
             email: req.body.email,
             name: req.body.name,
@@ -69,7 +67,9 @@ router.post('/register', [
                 id: newUser.id,
             }
         }
-        const authtoken = jwt.sign(payload,process.eventNames.JWT_SECRET);
+        const authtoken = jwt.sign(payload, process.env.JWT_SECRET,
+            { expiresIn: '7d' },
+        );
         res.json({ authtoken });
 
     } catch (error) {
@@ -89,13 +89,8 @@ router.post('/login', [
     }
 
     try {
-
         const theUser = await UserSchema.findOne({ email: req.body.email }); // <-- Change req.body.username to req.body.name
-        // console.log('my',theUser.name);
-        // req.session.name=theUser.name
-        req.session.email = req.body.email; // <-- Change req.body.username to req.body.name
-        console.log(req.session.email);
-        // console.log(req.session.name);
+       
         if (theUser) {
             let checkHash = await bcrypt.compare(req.body.password, theUser.password);
             if (checkHash) {
@@ -104,8 +99,9 @@ router.post('/login', [
                         id: theUser.id
                     }
                 }
-                const authtoken = jwt.sign(payload, JWT_SECRET);
-                return res.status(200).json({ authtoken });
+                const authtoken = jwt.sign(payload, process.env.JWT_SECRET);
+
+                return res.status(200).json({ authtoken, name: theUser.name });
             } else {
                 return res.status(403).json({ error: "Invalid Credentials" });
             }
@@ -146,7 +142,7 @@ router.put('/update', [
             },
         };
 
-        const authtoken = jwt.sign(payload, JWT_SECRET);
+        const authtoken = jwt.sign(payload, process.env.JWT_SECRET);
         res.json({ authtoken });
     } catch (error) {
         console.error(error);
@@ -218,7 +214,7 @@ router.put('/user', [
             },
         };
 
-        const authtoken = jwt.sign(payload, JWT_SECRET);
+        const authtoken = jwt.sign(payload, process.env.JWT_SECRET);
         res.json({ authtoken });
     } catch (error) {
         console.error(error);
