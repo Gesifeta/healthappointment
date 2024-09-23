@@ -61,29 +61,11 @@
     gap: 1rem;
 }
 
-.doctor-card {
-    max-width: 25rem;
-    min-height: 430;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #d4d4d4;
-    border-radius: 10px;
-    padding: .25rem;
-}
 
-.doctor-card img {
-    width: 100%;
-    min-height: 275px;
-}
 
 .app__doctor-search--card {
     margin-top: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
-}
-
-.doctor-card .btn-group {
-    min-width: 100%;
 }

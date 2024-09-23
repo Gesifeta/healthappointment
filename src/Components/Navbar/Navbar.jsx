@@ -6,8 +6,7 @@ import { useState } from "react"
 const Navbar = () => {
     const [authToken, setAuthToken] = useState(
         sessionStorage.getItem("auth-token"))
-    const name=sessionStorage.getItem("name")
-        console.log(authToken);
+    const name = sessionStorage.getItem("name")
     const navigate = useNavigate();
     return (
         <header className="app-header">

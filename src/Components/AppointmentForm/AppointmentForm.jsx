@@ -9,24 +9,23 @@ import { API_URL } from "../../config"
 function AppointmentForm() {
     const { email } = useParams()
 
-
     // state to store the doctor details
     const [doctor, setDoctor] = useState([])
-    console.log(doctor)
+
     useEffect(() => {
         // http fetch doctor details from the name
         fetch(`${API_URL}/appointment/${email}`, {
             method: "GET"
         })
-            .then(res => res.json()).then(data => setDoctor(data)).catch(err => (err))
+            .then(res => res.json()).then(([data]) => setDoctor(data)).catch(err => (err))
     }, [email])
     return (
 
         <div className="appointment-grid">
             <div className="appointment-text">
-                <h2>{doctor[0].name}</h2>
-                <h3>{doctor[0].specialty}</h3>
-                <h3>{doctor[0].experience} years of experence</h3>
+                <h2>{doctor?.name}</h2>
+                <h3>{doctor?.specialty}</h3>
+                <h3>{doctor?.experience} years of experence</h3>
                 <p>Rating: ⭐⭐⭐⭐⭐</p>
             </div>
             <div >

@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { images } from "../../assets"
 import "./FindDoctorSearch.css"
 import { API_URL } from "../../config"
+import DoctorCard from "../DoctorCard/DoctorCard"
 
 const FindDoctorSearch = () => {
-    const navigate = useNavigate()
+   
     const [isSearch, setIsSearch] = useState(false)
     const [specialties, setSpecialties] = useState([])
     const [doctors, setDoctors] = useState([])
@@ -89,17 +90,7 @@ const FindDoctorSearch = () => {
                         </div>
                     </div>
                 )) : filteredDoctors.map((doctor, index) => (
-                    <div className="doctor-card" key={index}>
-                        <img src={doctor.image} alt={doctor.name} />
-                        <h2>{doctor.name}</h2>
-                        <h4>{doctor.specialty}</h4>
-                        <p>{doctor.experience} of experiences.</p>
-                        <div className="btn-group">
-                            <button className=" btn-primary"
-                                onClick={() => navigate(`/appointment/${doctor.email}`, { replace: true })}
-                            >Book Appointment Free</button>
-                        </div>
-                    </div>
+                    <DoctorCard doctor={doctor} key={index}/>
                 ))}
             </div>
         </div>

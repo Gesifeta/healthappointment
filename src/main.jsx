@@ -8,6 +8,8 @@ import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/Sign_Up/SignUp.jsx'
 import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch.jsx'
 import AppointmentForm from './Components/AppointmentForm/AppointmentForm.jsx'
+import BookingConstultation from './Components/BookingConsultation/BookingConstultation.jsx'
+import LandingPage from './Components/Landing_Page/LandingPage.jsx'
 
 //create routes
 
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/home",
+        element: <LandingPage />
+      },
+      {
+        path: "/consultation",
+        element: <BookingConstultation />
+      },
       {
         path: "/login",
         element: <Login />,
