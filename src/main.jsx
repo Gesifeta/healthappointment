@@ -10,6 +10,8 @@ import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch.jsx
 import AppointmentForm from './Components/AppointmentForm/AppointmentForm.jsx'
 import BookingConstultation from './Components/BookingConsultation/BookingConstultation.jsx'
 import LandingPage from './Components/Landing_Page/LandingPage.jsx'
+import PopUp from './Components/Popup/PopUp.jsx'
+import ReviewForm from './Components/ReviewForm/ReviewForm.jsx'
 
 //create routes
 
@@ -35,12 +37,24 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "/search",
+        path: "/search/:bookingType",
         element: <FindDoctorSearch />
       },
       {
         path: "/appointment/:email",
         element: <AppointmentForm />
+      },
+      {
+        path: "/doctor/:id",
+        element: <PopUp />
+      },
+      {
+        path: "/booking/:email",
+        element: <PopUp />
+      },
+      {
+        path: "/review/doctor",
+        element: <ReviewForm/>
       },
       {
         path: "/profile",

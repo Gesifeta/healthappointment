@@ -1,0 +1,15 @@
+.app__pop-up {
+    position: fixed;
+    bottom: .5rem;
+    right: .25rem;
+    background-color: blue;
+    color: #fff;
+    border-radius: .5rem;
+    padding: 1rem;
+    max-width: 30%;
+}
+.app__pop-up--item {
+
+    margin: .25rem;
+    color: #ebe1e1;
+}

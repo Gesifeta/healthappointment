@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, NavLink } from "react-router-dom"
 import { images } from "../../assets"
 import './Navbar.css'
 import { useState } from "react"
@@ -17,16 +17,16 @@ const Navbar = () => {
                 </div>
                 <ul>
                     <li>
-                        <a href="#" className="link-item">Home</a>
+                        <NavLink to="/home" className="link-item">Home</NavLink>
                     </li>
                     <li>
-                        <a href="#appointments" className="link-item">Appointments</a>
+                        <NavLink to="/search" className="link-item">Appointments</NavLink>
                     </li>
                     <li>
-                        <a href="#healthblogs" className="link-item">Health Blogs</a>
+                        <NavLink to="#healthblogs" className="link-item">Health Blogs</NavLink>
                     </li>
                     <li>
-                        <a href="#reviews" className="link-item">Reviews</a>
+                        <NavLink to="/review/doctor" className="link-item">Reviews</NavLink>
                     </li>
                     <li>
 
@@ -35,6 +35,7 @@ const Navbar = () => {
                     <li>
                         {authToken ? <a className="link-item btn-primary" onClick={() => {
                             sessionStorage.clear();
+                            localStorage.clear();
                             setAuthToken(null);
                             window.location.reload();
                             navigate("/", { replace: true })

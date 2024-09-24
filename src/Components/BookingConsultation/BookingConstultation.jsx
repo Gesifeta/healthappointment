@@ -1,20 +1,30 @@
+import { useState } from 'react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+
 
 // css
 import './BookingConsultation.css'
 function BookingConsultation() {
     const navigate = useNavigate()
+    const [email, setAuthToken] = useState(sessionStorage.getItem("email"))
+    console.log(email)
     return (
         <section className='booking-consultation-container'>
             <h1>Best Services</h1>
             <h4>Love yourself enough to live a health lifestyle</h4>
             <div className="booking-consultation">
-                <div className="booking-consultation-card" onClick={() => navigate("/login", { replace: true })}>
+                <div className="booking-consultation-card" onClick={() => {
+                    if (email) { navigate("/search/instant", { replace: true }) } else
+                        navigate("/login", { replace: true })
+                }}>
                     <img src="https://img.freepik.com/free-vector/man-doctor-woman-nurse-stand-with-patient-card-medical-staff-uniform-study-discuss-examination-result-make-note-therapist-giving-treatment-recommendation-prescription-putting-signature_575670-1316.jpg?ga=GA1.1.110653321.1726910164&semt=ais_hybrid" alt="instant consultaion" />
                     <h3>Instant Consultation</h3>
                 </div>
-                <div className="booking-consultation-card" onClick={() => navigate("/login", { replace: true })}>
+                <div className="booking-consultation-card" onClick={() => {
+                    if (email) { navigate("/search/regular", { replace: true }) } else
+                        navigate("/login", { replace: true })
+                }}>
                     <img src="https://img.freepik.com/free-vector/man-doctor-with-medical-services-icons_24877-51669.jpg?ga=GA1.1.110653321.1726910164&semt=ais_hybrid" alt="instant booking" />
                     <h3>Book an Appointment</h3>
                 </div>

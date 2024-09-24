@@ -5,9 +5,10 @@ import { images } from "../../assets"
 import "./FindDoctorSearch.css"
 import { API_URL } from "../../config"
 import DoctorCard from "../DoctorCard/DoctorCard"
+import AppointmentForm from "../AppointmentForm/AppointmentForm"
 
 const FindDoctorSearch = () => {
-   
+
     const [isSearch, setIsSearch] = useState(false)
     const [specialties, setSpecialties] = useState([])
     const [doctors, setDoctors] = useState([])
@@ -72,7 +73,7 @@ const FindDoctorSearch = () => {
                     </div>
                 </div> : null}
             {/* doctors card */}
-            <h1>More than {filteredDoctors.length} Available doctors</h1>
+            <h2>More than {filteredDoctors.length} Available doctors</h2>
             <h3>Book a doctor with minimum waiting time and verified badge.</h3>
             <div className="app__doctor-search--card">
                 {/* doctors card */}
@@ -90,9 +91,10 @@ const FindDoctorSearch = () => {
                         </div>
                     </div>
                 )) : filteredDoctors.map((doctor, index) => (
-                    <DoctorCard doctor={doctor} key={index}/>
+                    <DoctorCard doctor={doctor} key={index} />
                 ))}
             </div>
+
         </div>
     )
 }
