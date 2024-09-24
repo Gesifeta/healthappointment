@@ -1,24 +1,28 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const reviewSchema = new Schema({
-    doctorId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Doctor",
-        required:true
+    doctorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Doctor",
+        required: true
     },
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
     },
-    feedback:{
-        type:String,
-        required:true,
-        unique:true
+    email: {
+        type: String,
+        required: true
     },
-    rating:{
-        type:Number,
-        required:true
+    feedback: {
+        type: String,
+        required: true,
+        unique: true
     },
-},{timestamps:true})
-export const Review = mongoose.model("Review",reviewSchema)
+    rating: {
+        type: Number,
+        required: true
+    },
+}, { timestamps: true })
+export const Review = mongoose.model("Review", reviewSchema)

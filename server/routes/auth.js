@@ -227,7 +227,7 @@ router.put('/user', [
 //search doctors
 router.get('/search', async (req, res) => {
     try {
-        const doctors = await UserSchema.find({ role: "doctor" }); 
+        const doctors = await UserSchema.find({ role: "doctor" });
         return res.json(doctors);
 
     } catch (error) {
@@ -290,18 +290,39 @@ router.get('/booking/:email', async (req, res) => {
 });
 //give review
 router.post('/review/new', async (req, res) => {
+    console.log(req.body);
     try {
-    const { name, rating, feedback,doctorId } = req.body;
+        const { name, rating, feedback, doctorId, email } = req.body;
         const newReview = new Review({
             name,
+            email,
             doctorId,
             rating,
             feedback,
         });
-
         const updateReview = await newReview.save();
 
         return res.json(updateReview);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//find review
+router.get('/review/:email', async (req, res) => {
+    try {
+        const reviews = await Review.find({ email: req.params.email });
+        return res.json(reviews);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//find all review
+router.get('/review', async (req, res) => {
+    try {
+        const reviews = await Review.find();
+        return res.json(reviews);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");

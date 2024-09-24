@@ -39,7 +39,10 @@ const Navbar = () => {
                             setAuthToken(null);
                             window.location.reload();
                             navigate("/", { replace: true })
-                        }}>Logout</a> : <a className="link-item btn-primary" onClick={() => navigate("/login", { replace: true })}>Log In</a>}
+                        }}>Logout</a> : <a className="link-item btn-primary" onClick={() => {
+                            navigate("/login", { replace: true })
+                        
+                        }}>Log In</a>}
                     </li>
                 </ul>
             </nav>

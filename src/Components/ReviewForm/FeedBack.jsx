@@ -2,11 +2,12 @@
 import React, { useState } from 'react'
 import { API_URL } from '../../config';
 
-const FeedBack = ({ doctorId }) => {
+const FeedBack = ({ doctorId, email }) => {
     const [review, setReview] = useState({
         name: "",
         feedback: "",
         rating: 0,
+        email,
         doctorId
 
     });
@@ -29,17 +30,18 @@ const FeedBack = ({ doctorId }) => {
             body: JSON.stringify(review)
         })
             .then(res => res.json())
-            .then(data => {
-                console.log(data);
+            .then(([data]) => {
+             localStorage.setItem("review", JSON.stringify(data));
                 //clear form
                 setReview({
                     name: "",
                     feedback: "",
                     rating: 0,
-                    doctorId
+                    doctorId,
+                    email:""
                 });
             })
-            .catch(err => console.log(err));
+            .catch(err => (err));
     }
     // c
     return (
@@ -57,10 +59,13 @@ const FeedBack = ({ doctorId }) => {
 
                     onChange={input => handleInputChange(input)}
                 ></textarea>
-                <label htmlFor="rating" style={{fontWeight:"bold"}}>Rating:</label>
+                <label htmlFor="rating" style={{ fontWeight: "bold" }}>Rating:</label>
                 <p style={{ display: "flex" }}>
                     {[1, 2, 3, 4, 5].map((value, index) => (
-                        <span className='rating' key={index} style={{ cursor: "pointer" }} >
+                        <span className='rating' key={index} style={{ cursor: "pointer" }} onClick={() => setReview((r) => ({
+                            ...r,
+                            rating: value
+                        }))}>
                             ⭐
                         </span>
                     ))}</p>
