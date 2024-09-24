@@ -8,6 +8,7 @@ import { body, validationResult } from 'express-validator';
 
 import { UserSchema } from '../models/User.js';
 import { Booking } from '../models/Booking.js';
+import { Review } from '../models/Review.js';
 
 dotenv.config();
 export const router = express.Router();
@@ -282,6 +283,25 @@ router.get('/booking/:email', async (req, res) => {
     try {
         const bookings = await Booking.find({ email: req.params.email });
         return res.json(bookings);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//give review
+router.post('/review/new', async (req, res) => {
+    try {
+    const { name, rating, feedback,doctorId } = req.body;
+        const newReview = new Review({
+            name,
+            doctorId,
+            rating,
+            feedback,
+        });
+
+        const updateReview = await newReview.save();
+
+        return res.json(updateReview);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");

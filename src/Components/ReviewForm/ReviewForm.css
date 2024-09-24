@@ -1,7 +1,24 @@
 .review-form {
+  
     display: flex;
     flex-direction: column;
     gap: 2rem;
     margin: auto;
     max-width: 70%;
+}
+.app__feedback
+{
+    border-radius: 5px;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+
+}
+.rating{
+    border-radius: 50%;
+    padding: .25rem;
+}
+.rating:hover{
+    background-color: green;
+
 }

@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import './ReviewForm.css'
 import { API_URL } from '../../config';
+import FeedBack from './FeedBack';
 
 function ReviewForm() {
     const [doctors, setDoctors] = useState([]);
+    const [showFeedbackForm, setShowFeedbackForm] = useState(false);
     //fetch doctors
     useEffect(() => {
         const fetchDoctors = async () => {
@@ -31,10 +33,20 @@ function ReviewForm() {
                         <td>{index}</td>
                         <td>{doctor.name}</td>
                         <td>{doctor.specialty}</td>
-                        <td><button className='btn-primary'>Review</button></td>
+                        <td><button className='btn-primary' onClick={()=>setShowFeedbackForm(!showFeedbackForm)}>Review</button></td>
                         <td></td>
                     </tr>))}
             </table>
+
+            {/* feedback form */}
+            {showFeedbackForm && (
+                <div className="app__overlay">
+                <div className="app__modal">
+             
+               <FeedBack/>
+                </div>
+                </div>
+            )}
         </div>
 
     )
