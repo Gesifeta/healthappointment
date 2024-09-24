@@ -21,17 +21,21 @@ export const userSchema = new Schema({
     },
     experience: {
         type: Number,
-        required: true,
     },
     qualification: {
         type: String,
-        required: true,
     },
     role: {
         type: String,
         required: true,
     }
     ,
+    rating: [{
+        rate: Number,
+        comment: String,
+        user: String,
+        date: Date
+    }],
     image: {
         type: String,
         required: false,

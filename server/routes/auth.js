@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import { body, validationResult } from 'express-validator';
 
 import { UserSchema } from '../models/User.js';
+import { Booking } from '../models/Booking.js';
 
 dotenv.config();
 export const router = express.Router();
@@ -225,7 +226,18 @@ router.put('/user', [
 //search doctors
 router.get('/search', async (req, res) => {
     try {
-        const doctors = await UserSchema.find({ role: "doctor" });
+        const doctors = await UserSchema.find({ role: "doctor" }); 
+        return res.json(doctors);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//get doctor by id
+router.get('/doctor/:id', async (req, res) => {
+    try {
+        const doctors = await UserSchema.findById(req.params.id);
         return res.json(doctors);
     } catch (error) {
         console.error(error);
@@ -238,6 +250,38 @@ router.get('/appointment/:email', async (req, res) => {
     try {
         const doctors = await UserSchema.find({ email: req.params.email });
         return res.json(doctors);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//create booking
+router.post('/booking/new', async (req, res) => {
+    try {
+        const { firstName, phone, appointmentDate, email, timeSlot, doctorId, bookingType } = req.body;
+        const newBooking = new Booking({
+            firstName,
+            phone,
+            email,
+            appointmentDate: bookingType !== "instant" ? appointmentDate : Date(),
+            timeSlot: bookingType !== "instant" ? timeSlot : null,
+            doctorId,
+            bookingType,
+        });
+
+        const updateBooking = await newBooking.save();
+
+        return res.json(updateBooking);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//fetch booking
+router.get('/booking/:email', async (req, res) => {
+    try {
+        const bookings = await Booking.find({ email: req.params.email });
+        return res.json(bookings);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");
