@@ -5,7 +5,6 @@ import { images } from "../../assets"
 import "./FindDoctorSearch.css"
 import { API_URL } from "../../config"
 import DoctorCard from "../DoctorCard/DoctorCard"
-import AppointmentForm from "../AppointmentForm/AppointmentForm"
 
 const FindDoctorSearch = () => {
 

@@ -3,17 +3,16 @@ import { useEffect, useState } from "react"
 import "./DoctorCard.css"
 import AppointmentForm from '../AppointmentForm/AppointmentForm'
 
-const DoctorCard = ({ doctor }) => {
+const DoctorCard = ({ doctor }) => {    
     //state to show appointment form
     const [showAppointemntForm, setShowAppointmentForm] = useState(false)
-    useEffect(() => {
-        const overlay = document.querySelector(".app__overlay")
-    }, []);
+    const [cancelBooking, setCancelBooking] = useState(false)
+
     const navigate = useNavigate()
     //get isBooked from local session storage
-    const localDoctor = localStorage.getItem("doctor") !== null ? JSON.parse(localStorage.getItem("doctor")) : localStorage.clear();
+    const localDoctor = localStorage.getItem("doctor") !== "undefined" ? JSON.parse(localStorage.getItem("doctor")) : localStorage.clear();
     //get email from local session storage
-    const localBooking = localStorage.getItem("booking") !== null ? JSON.parse(localStorage.getItem("booking")) : localStorage.clear()
+    const localBooking = localStorage.getItem("booking") !== "undefined" ? JSON.parse(localStorage.getItem("booking")) : localStorage.clear()
     //delete booking
     const deleteBooking = () => {
         localStorage.removeItem("booking")
@@ -28,10 +27,13 @@ const DoctorCard = ({ doctor }) => {
                 <p>{doctor.experience} of experiences.</p>
                 <div className="btn-group">
                     <button className=" btn-primary" style={{ backgroundColor: doctor._id === localBooking?.doctorId ? "red" : "#2190FF" }}
-                        onClick={() => {
-                            deleteBooking(localBooking?.doctorId)
+                        onClick={(e) => {
+                            if (e.target.style.backgroundColor === "red") {
+
+                                setCancelBooking(true);
+
+                            }
                             setShowAppointmentForm(!showAppointemntForm)
-                            window.location.reload()
                         }}
                     >{doctor._id == localBooking?.doctorId ? "Cancel appointment" : "Book Appointment Free"}</button>
                 </div>
@@ -42,7 +44,7 @@ const DoctorCard = ({ doctor }) => {
                     event.target.style.display = "none"
             }}>
                 <div className="app__modal">
-                    <AppointmentForm email={doctor.email} />
+                    <AppointmentForm doctor={doctor}  cancelBooking={cancelBooking} />
                 </div>
 
             </div>) : null}

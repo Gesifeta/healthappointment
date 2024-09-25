@@ -11,11 +11,6 @@
     color: #fff;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
-
 .app-logo {
     width: 6rem;
     height: 6rem;
@@ -24,6 +19,8 @@ body {
 
 .app-header ul {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     list-style: none;
     gap: 1rem;
 }

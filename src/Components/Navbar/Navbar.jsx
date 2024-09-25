@@ -1,12 +1,16 @@
 import { useNavigate, NavLink } from "react-router-dom"
 import { images } from "../../assets"
 import './Navbar.css'
+import "../ProfileCard/ProfileCard.css"
 import { useState } from "react"
 
 const Navbar = () => {
+    const [showProfileMenu, setShowProfileMenu] = useState(false)
+    const [showMenu, setShowMenu] = useState(false)
     const [authToken, setAuthToken] = useState(
         sessionStorage.getItem("auth-token"))
-    const name = sessionStorage.getItem("name")
+    const name = sessionStorage.getItem("name") !== "undefined" ? sessionStorage.getItem("name") : "";
+    const email = sessionStorage.getItem("email") !== "undefined" ? sessionStorage.getItem("email") : "";
     const navigate = useNavigate();
     return (
         <header className="app-header">
@@ -28,21 +32,39 @@ const Navbar = () => {
                     <li>
                         <NavLink to="/review/doctor" className="link-item">Reviews</NavLink>
                     </li>
-                    <li>
+                    <li className="app__profile"
+                        onClick={() => setShowProfileMenu(!showProfileMenu)}
+                    >
+                        {authToken ? <>
+                            <span className="profile" >Welcome, {name}</span>
+                            {showProfileMenu &&
+                                <ul className="profile-menu"
+                                    onMouseLeave={() => setShowProfileMenu(false)}
+                                >
+                                    {["Profile", "Reports", "Logout"].map((profile, index) => (
+                                        <li key={index}
+                                            onClick={() => {
+                                                setShowProfileMenu(false)
+                                                navigate(`/user/${profile.toLowerCase()}/${email}`)
+                                            }}
+                                        >{profile}</li>
+                                    ))}
+                                </ul>
+                            }
 
-                        {authToken ? <a className="link-item profile" onClick={() => navigate("/profile", { replace: true })}>Welcome, {name}</a> : <a className="link-item btn-primary" onClick={() => navigate("/register", { replace: true })}>Sign Up</a>}
+                        </> : <button className="link-item btn-primary" onClick={() => navigate("/register", { replace: true })}>Sign Up</button>}
                     </li>
                     <li>
-                        {authToken ? <a className="link-item btn-primary" onClick={() => {
+                        {authToken ? <button className="link-item btn-primary" onClick={() => {
                             sessionStorage.clear();
                             localStorage.clear();
                             setAuthToken(null);
                             window.location.reload();
                             navigate("/", { replace: true })
-                        }}>Logout</a> : <a className="link-item btn-primary" onClick={() => {
+                        }}>Logout</button> : <button className="link-item btn-primary" onClick={() => {
                             navigate("/login", { replace: true })
-                        
-                        }}>Log In</a>}
+
+                        }}>Log In</button>}
                     </li>
                 </ul>
             </nav>

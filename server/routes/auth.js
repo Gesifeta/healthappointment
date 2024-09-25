@@ -154,15 +154,10 @@ router.put('/update', [
 });
 
 // Route 4: Fetch user data based on the email: GET: http://localhost:8181/api/auth/user
-router.get('/user', async (req, res) => {
+router.get('/user/profile/:email', async (req, res) => {
     try {
-        const email = req.headers.email; // Extract the email from the request headers
 
-        if (!email) {
-            return res.status(400).json({ error: "Email not found in the request headers" });
-        }
-
-        const user = await UserSchema.findOne({ email });
+        const user = await UserSchema.findOne({ email: req.params.email });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
@@ -184,7 +179,7 @@ router.get('/user', async (req, res) => {
         return res.status(500).send("Internal Server Error");
     }
 });
-router.put('/user', [
+router.patch('/user/update', [
     body('name', "Username should be at least 4 characters").isLength({ min: 4 }),
     body('phone', "Phone number should be 10 digits").isLength({ min: 10 }),
 ], async (req, res) => {
@@ -194,22 +189,13 @@ router.put('/user', [
     }
 
     try {
-        const email = req.headers.email; // Extract the email from the request headers
-
-        if (!email) {
-            return res.status(400).json({ error: "Email not found in the request headers" });
-        }
-
+        const { email, name, phone } = req.body;
         const existingUser = await UserSchema.findOne({ email });
+
         if (!existingUser) {
             return res.status(404).json({ error: "User not found" });
         }
-
-        existingUser.name = req.body.name;
-        existingUser.phone = req.body.phone;
-        existingUser.updatedAt = Date();
-
-        const updatedUser = await existingUser.save();
+        const updatedUser = await UserSchema.updateOne({ email }, { $set: { name, phone, updatedAt: Date() } });
 
         const payload = {
             user: {
@@ -245,7 +231,7 @@ router.get('/doctor/:id', async (req, res) => {
         return res.status(500).send("Internal Server Error");
     }
 });
-//fetch user by name
+//fetch user by email
 router.get('/appointment/:email', async (req, res) => {
 
     try {
@@ -282,6 +268,20 @@ router.post('/booking/new', async (req, res) => {
 router.get('/booking/:email', async (req, res) => {
     try {
         const bookings = await Booking.find({ email: req.params.email });
+        return res.json(bookings);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+//delete booking
+router.delete('/booking/delete/:doctorId', async (req, res) => {
+    try {
+        const bookings = await Booking.find({ doctorId: req.params.doctorId });
+        if (!bookings) {
+            return res.status(404).json({ error: "Booking not found" });
+        }
+        await Booking.deleteOne({ doctorId: req.params.doctorId });
         return res.json(bookings);
     } catch (error) {
         console.error(error);
@@ -328,3 +328,4 @@ router.get('/review', async (req, res) => {
         return res.status(500).send("Internal Server Error");
     }
 });
+//find user by email

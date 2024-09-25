@@ -1,13 +1,15 @@
 @import url(global.css);
+@import url(./../App.css);
 
 .form-group {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.btn-group{
+
+.btn-group {
     display: flex;
-    
+
 }
 
 .btn-primary {
@@ -28,17 +30,21 @@
     margin-top: 15px;
 }
 
+
 @media screen and (max-width:600px) {
-    .form-group{
+    .form-group {
         flex-direction: column;
         align-items: flex-start;
     }
-    .btn-group{
+
+    .btn-group {
         flex-direction: column;
     }
-    .form-group input,.form-group select{
+
+    .form-group input,
+    .form-group select {
         width: 100%;
     }
 
-    
+
 }

@@ -1,0 +1,26 @@
+
+.app__profile {
+    position: relative;
+}
+
+.profile-menu {
+    position: absolute;
+    width: 100%;
+    padding: .2rem;
+    top: 3rem;
+    display: flex;
+    border-radius: 6px;
+    background-color: #9E515F;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-direction: column;
+}
+.profile-menu li{
+    margin: 0;
+    display: flex;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.profile-menu li:hover{
+    background-color: #dedede;
+}

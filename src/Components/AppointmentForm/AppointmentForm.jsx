@@ -6,13 +6,18 @@ import { useParams } from "react-router-dom"
 import "./AppointmentForm.css"
 import { API_URL } from "../../config"
 
-function AppointmentForm({ email }) {
+function AppointmentForm({ doctor, cancelBooking }) {
+    
+    const [showBookingForm, setShowBookingForm] = useState(true)
+    const [appointment,setAppointment]=useState({})
     const { bookingType } = useParams()
+    const rate = [];
     const [result, setResult] = useState(null)
-    const [doctor, setDoctor] = useState(null)
     const userEmail = sessionStorage.getItem("email")
-    console.log(userEmail)
-
+    const doctorId = localStorage.getItem("booking") !== null ? JSON.parse(localStorage.getItem("booking")).doctorId : ""
+    for (let i = 0; i < 5; i++) {
+        rate.push(<span className='rating' key={i}>⭐</span>)
+    }
     const [booking, setBooking] = useState({
         firstName: "",
         phone: "",
@@ -26,14 +31,14 @@ function AppointmentForm({ email }) {
     // state to store the doctor details
     useEffect(() => {
         // http fetch doctor details from the name
-        fetch(`${API_URL}/appointment/${email}`, {
+        fetch(`${API_URL}/appointment/${userEmail}`, {
             method: "GET"
         })
             .then(res => res.json()).then(([data]) => {
-                setDoctor(data)
+                setAppointment(data)
 
             }).catch(err => (err))
-    }, [email])
+    }, [userEmail])
     //post new booking
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -46,6 +51,16 @@ function AppointmentForm({ email }) {
             [name]: value
         }))
     }
+    //cancel booking from the http server
+    const handleCancel = () => {
+
+        fetch(`${API_URL}/booking/delete/${doctorId}`, {
+            method: "DELETE"
+        }).then(res => res.json()).then(([data]) => {
+            setResult(data)
+        }).catch(err => (err))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch(`${API_URL}/booking/new`, {
@@ -56,11 +71,11 @@ function AppointmentForm({ email }) {
             body: JSON.stringify(booking)
         }).then(res => res.json()).then(([data]) => setResult(data)).then(() => {
             localStorage.setItem("booking", JSON.stringify(result))
-            sessionStorage.setItem("isBooked", "true")
             sessionStorage.setItem("bookingId", JSON.stringify(result.doctorId))
+
         }).catch(err => (err))
     }
-    return (
+    return showBookingForm && (
 
         <div className="appointment-grid">
             <img src={doctor?.image} alt="" />
@@ -68,26 +83,34 @@ function AppointmentForm({ email }) {
                 <h2>{doctor?.name}</h2>
                 <h3>{doctor?.specialty}</h3>
                 <h3>{doctor?.experience} years of experence</h3>
-                <p>Rating: ⭐⭐⭐⭐⭐</p>
+                <p>Rating:{rate}</p>
             </div>
             <div >
                 <form method="POST" className="appointment-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="firstName">Name</label>
-                        <input type="text" name="firstName" id="firstName" className="form-control"
+                        <input type="text" name="firstName" id="firstName"
+                            value={cancelBooking ? appointment?.name : booking.firstName}
+                            className="form-control"
                             placeholder="Enter your name" aria-describedby="helpId"
+                            disabled={cancelBooking ? true : false}
                             onChange={handleChange}
                         />
                     </div>
                     {/* phone */}
                     <div className="form-group">
                         <label htmlFor="phone">Phone</label>
-                        <input type="tel" maxLength={13} name="phone" id="phone" required className="form-control" onChange={handleChange} />
+                        <input type="tel" maxLength={13} name="phone" id="phone" required className="form-control"
+                            value={cancelBooking ? appointment?.phone : booking.phone}
+                            disabled={cancelBooking ? true : false} onChange={handleChange} />
                     </div>
                     {/* date of appointment */}
                     <div className="form-group">
                         <label htmlFor="appointmentDate">Date of Appointment</label>
-                        <input type="date" name="appointmentDate" id="appointmentDate" required className="form-control"
+                        <input type="date" name="appointmentDate"
+                            value={cancelBooking ? appointment?.appointmentDate : booking.appointmentDate}
+                            id="appointmentDate" required className="form-control"
+                            disabled={cancelBooking ? true : false}
                             onChange={handleChange} />
                     </div>
                     {/* time of appointment */}
@@ -96,6 +119,8 @@ function AppointmentForm({ email }) {
                         {/* create a time slot for the day
                            using select */}
                         <select name="timeSlot" id="timeSlot" required className="form-control"
+                            value={cancelBooking ? appointment?.timeSlot : booking.timeSlot}
+                            disabled={cancelBooking ? true : false}
                             onChange={handleChange}>
                             <option value="select">Select time slot</option>
                             <option value="10:00 AM">10:00 AM</option>
@@ -110,15 +135,23 @@ function AppointmentForm({ email }) {
                     </div>
                     {/* time of appointment */}
                     <div className="btn-group">
-                        <button type="submit"
+                        {!cancelBooking ? <button type="submit"
                             className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
-                        >Book Now</button>
+                            onSubmit={() => setShowBookingForm(false)}
+                        >Book Now</button> :
+                            <button type="button" onClick={() => {
+                                handleCancel()
+                                setShowBookingForm(false)
+                            }}
+                                className="btn btn-danger mb-2 mr-1 waves-effect waves-light"
+                            >Cancel</button>
+                        }
                         {/* <button type="reset" className="btn btn-danger ">Cancel</button> */}
                     </div>
                 </form>
             </div>
         </div>
-    )
+    ) 
 }
 
 export default AppointmentForm

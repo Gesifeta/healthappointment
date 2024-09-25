@@ -12,6 +12,7 @@ import BookingConstultation from './Components/BookingConsultation/BookingConstu
 import LandingPage from './Components/Landing_Page/LandingPage.jsx'
 import PopUp from './Components/Popup/PopUp.jsx'
 import ReviewForm from './Components/ReviewForm/ReviewForm.jsx'
+import ProfileCard from './Components/ProfileCard/ProfileCard.jsx'
 
 //create routes
 
@@ -54,11 +55,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/review/doctor",
-        element: <ReviewForm/>
+        element: <ReviewForm />
       },
       {
-        path: "/profile",
-        element: <h1>Profile</h1>
+        path: "/user/profile/:email",
+        element: <ProfileCard />
       },
       {
         path: "/chat",

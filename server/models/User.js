@@ -30,12 +30,7 @@ export const userSchema = new Schema({
         required: true,
     }
     ,
-    rating: [{
-        rate: Number,
-        comment: String,
-        user: String,
-        date: Date
-    }],
+    rating: Number,
     image: {
         type: String,
         required: false,
