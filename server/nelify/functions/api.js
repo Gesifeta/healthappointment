@@ -27,20 +27,20 @@ app.use(cors());
 // Connect to MongoDB
 connectToMongo();
 
-// Routes
-app.use('/api/auth', router);
-//server static files
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+    res.send('Hello World!');
 });
-
+// Routes
+app.use('/api/auth/', router);
+//server static files
 // // Start the server
 // app.listen(PORT, () => {
 //   console.log(`Server is running on port http://localhost:${PORT}`);
