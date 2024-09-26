@@ -49,7 +49,7 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    gap: .85rem;
+    gap: .75rem;
 
 }
 
@@ -72,4 +72,35 @@ a {
     padding: 1rem 2rem;
     border-radius: 5px;
     text-wrap: nowrap;
+}
+
+@media screen and (max-width:600px) {
+    .app-navbar {
+        top: 0;
+        position: absolute;
+        flex-direction: column;
+        align-items: flex-start;
+        z-index: 100;
+    }
+
+    .app-header {
+        position: relative;
+    }
+
+    .nav-menu {
+        margin: 1.5rem 1rem;
+        display: inline-flex;
+    }
+    .app-navbar ul {
+       padding: 1rem 0;
+       margin: .8rem 0;
+        align-items: flex-start;
+        flex-direction: column;
+        background-color: #b8b0b2;
+    
+    }
+    .nav-menu li{
+        margin-left: 0;
+    }
+
 }
