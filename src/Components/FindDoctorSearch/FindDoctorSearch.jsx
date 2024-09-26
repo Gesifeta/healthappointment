@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import { images } from "../../assets"
 import "./FindDoctorSearch.css"
@@ -7,15 +7,21 @@ import { API_URL } from "../../config"
 import DoctorCard from "../DoctorCard/DoctorCard"
 
 const FindDoctorSearch = () => {
-
+    const navigate=useNavigate()
+  const {bookingType}=useParams()
     const [isSearch, setIsSearch] = useState(false)
     const [specialties, setSpecialties] = useState([])
     const [doctors, setDoctors] = useState([])
+    const [booking, setBooking] = useState(null)
     const [filteredDoctors, setFilteredDoctors] = useState([])
     const [filteredSpecialties, setFilteredSpecialties] = useState([])
     const [searchText, setSearchText] = useState("")
+    //get authToken from session storage
+    const authToken = sessionStorage.getItem("auth-token")
+    //get email from session storage
+    const email = sessionStorage.getItem("email")
     useEffect(() => {
-        fetch(`${API_URL}/search`, {
+        fetch(`${API_URL}/user/search`, {
             method: "GET"
         })
             .then(res => res.json())
@@ -24,6 +30,16 @@ const FindDoctorSearch = () => {
                 setSpecialties([...new Set(data.map(doctor => doctor.specialty))])
             })
     }, [searchText])
+    //fetch booking
+    useEffect(() => {
+        fetch(`${API_URL}/booking/${email}`, {
+            method: "GET"
+        })
+            .then(res => res.json())
+            .then(data => {
+                setBooking(data)
+            })
+    }, [])
     useEffect(() => {
         const filtered = specialties.filter(specialty => specialty.toLowerCase().includes(searchText.toLowerCase()))
         setFilteredSpecialties(filtered)
@@ -42,7 +58,7 @@ const FindDoctorSearch = () => {
         setSearchText(search);
 
     }
-    return (
+    return authToken? (
         <div className='app__doctor-search'>
             <h1>Find Your Doctor at Your Own Ease</h1>
             <img src="https://cdn.pixabay.com/photo/2021/11/20/03/16/doctor-6810750_1280.png" alt="search picture" />
@@ -77,14 +93,13 @@ const FindDoctorSearch = () => {
                 <h3>Book a doctor with minimum waiting time and verified badge.</h3>
                 <div className="app__doctor-search--card">
                     {/* doctors card */}
-
                     {filteredDoctors.map((doctor, index) => (
-                        <DoctorCard doctor={doctor} key={index} />
+                        <DoctorCard doctor={doctor} key={index} booking={booking} bookingType={bookingType} />
                     ))}
                 </div>
             </>
         </div>
-    )
+    ):(navigate("/home/login"),null)
 }
 
 export default FindDoctorSearch

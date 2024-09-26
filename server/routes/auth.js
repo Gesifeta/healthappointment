@@ -211,7 +211,7 @@ router.patch('/user/update', [
     }
 });
 //search doctors
-router.get('/search', async (req, res) => {
+router.get('/user/search', async (req, res) => {
     try {
         const doctors = await UserSchema.find({ role: "doctor" });
         return res.json(doctors);
@@ -232,11 +232,11 @@ router.get('/doctor/:id', async (req, res) => {
     }
 });
 //fetch user by email
-router.get('/appointment/:email', async (req, res) => {
+router.get('/booking/:email', async (req, res) => {
 
     try {
-        const doctors = await UserSchema.find({ email: req.params.email });
-        return res.json(doctors);
+        const booking = await Booking.findOne({ email: req.params.email });
+        return res.json(booking);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");
@@ -256,22 +256,12 @@ router.post('/booking/new', async (req, res) => {
             bookingType,
         });
         //check if booking with doctor id arleady exist
-        const existingBooking = await Booking.findOne({ doctorId });
-        if (existingBooking && existingBooking.timeSlot === timeSlot) {
+        const existingBooking = await Booking.findOne({ email });
+        if (existingBooking) {
             return res.status(403).json({ error: "Booking with this doctor already exists" });
         }
         const updateBooking = await newBooking.save();
-            return res.json(updateBooking);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).send("Internal Server Error");
-    }
-});
-//fetch booking
-router.get('/booking/:email', async (req, res) => {
-    try {
-        const bookings = await Booking.find({ email: req.params.email });
-        return res.json(bookings);
+        return res.json(updateBooking);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");
@@ -279,6 +269,7 @@ router.get('/booking/:email', async (req, res) => {
 });
 //delete booking
 router.delete('/booking/delete/:doctorId', async (req, res) => {
+    console.log(req.params.doctorId);
     try {
         const bookings = await Booking.find({ doctorId: req.params.doctorId });
         if (!bookings) {

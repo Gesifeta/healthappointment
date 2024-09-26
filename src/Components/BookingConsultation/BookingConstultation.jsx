@@ -28,7 +28,7 @@ function BookingConsultation() {
                     <img src="https://img.freepik.com/free-vector/man-doctor-with-medical-services-icons_24877-51669.jpg?ga=GA1.1.110653321.1726910164&semt=ais_hybrid" alt="instant booking" />
                     <h3>Book an Appointment</h3>
                 </div>
-                <div className="booking-consultation-card">
+                <div className="booking-consultation-card" onClick={() => navigate("/home/self_checkup", { replace: true })}>
                     <img src="https://img.freepik.com/premium-vector/professional-doctors-team-medical-group-portrait-hospital-work_1322553-59681.jpg?ga=GA1.1.110653321.1726910164&semt=ais_hybrid" alt="self check up" />
                     <h3>Self Checkup</h3>
                 </div>

@@ -1,0 +1,51 @@
+.app__self-checkup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+    max-width: 80%;
+    margin: auto;
+
+}
+
+.app__self-checkup p,
+li {
+    font-size: 1.25rem;
+}
+
+.app__self-checkup ul {
+    list-style-type: disc;
+    cursor: auto;
+}
+
+.app__self-checkup img {
+    width: 20rem;
+}
+
+.app__self-checkup--item {
+    display: flex;
+    align-items: flex-start;
+    max-width: 70%;
+    gap: 2rem;
+}
+
+.app__self-checkup--item:nth-of-type(odd) {
+    display: flex;
+    flex-direction: row-reverse;
+    align-self: flex-end;
+}
+
+@media screen and (max-width:600px) {
+    .app__self-checkup {
+        min-width: 90%;
+    }
+
+    .app__self-checkup--item,
+    .app__self-checkup--item:nth-of-type(odd) {
+        flex-direction: column;
+        min-width: 100%;
+    }
+
+
+}

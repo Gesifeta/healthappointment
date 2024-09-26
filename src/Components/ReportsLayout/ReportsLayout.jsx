@@ -1,13 +1,16 @@
-
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
+
+
 import './ReportsLayout.css'
 import { API_URL } from '../../config';
-import { useNavigate } from 'react-router-dom';
+import Report from './Reports.jsx';
 
 
 function ReportForm() {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
+    const [showReport,setShowReport]=useState(false)
     const [doctorId, setDoctorId] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
     const email = sessionStorage.getItem("email")
@@ -30,13 +33,13 @@ function ReportForm() {
     //fetch doctors
     useEffect(() => {
         const fetchDoctors = async () => {
-            const res = await fetch(`${API_URL}/search`);
+            const res = await fetch(`${API_URL}/user/search`);
             const data = await res.json();
             setDoctors(data);
         };
         fetchDoctors();
     }, []);
-    return (
+    return !showReport? (
         <div className='report-form'>
             <h1>Reports</h1>
             {/* display doctors on table */}
@@ -54,17 +57,17 @@ function ReportForm() {
                             <td>{index}</td>
                             <td>{doctor.name}</td>
                             <td>{doctor.specialty}</td>
-                            <td><button className='btn-primary' onClick={() => navigate("/home/reports", { replace: true })}
+                            <td><button className='btn-primary' onClick={() => setShowReport(true)}
                             > View Report</button></td>
 
                             <td><button className='btn-primary'
-                            ><a href="./../assets/reports.pdf" target="_blank" rel="noopener noreferrer" download> View Report</a></button></td>
+                            ><a href="reports.pdf" target="_blank" rel="noopener noreferrer" download> View Report</a></button></td>
                         </tr>))}
                 </tbody>
             </table>
         </div>
 
-    )
+    ):<Report doctorId={doctorId} showReport={showReport} setShowReport={setShowReport} />
 }
 
 export default ReportForm

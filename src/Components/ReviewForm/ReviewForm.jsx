@@ -1,15 +1,16 @@
-
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
 import './ReviewForm.css'
 import { API_URL } from '../../config';
 import FeedBack from './FeedBack';
 
 function ReviewForm() {
+    const navigate=useNavigate()
     const [doctors, setDoctors] = useState([]);
     const [doctorId, setDoctorId] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
     const email = sessionStorage.getItem("email")
-    console.log(email);
+    
     useEffect(() => {
         //fetch reviews
         const fetchReviews = async () => {
@@ -28,13 +29,13 @@ function ReviewForm() {
     //fetch doctors
     useEffect(() => {
         const fetchDoctors = async () => {
-            const res = await fetch(`${API_URL}/search`);
+            const res = await fetch(`${API_URL}/user/search`);
             const data = await res.json();
             setDoctors(data);
         };
         fetchDoctors();
     }, []);
-    return (
+    return email?(
         <div className='review-form'>
             <h1>Review Doctors</h1>
             {/* display doctors on table */}
@@ -72,7 +73,7 @@ function ReviewForm() {
             )}
         </div>
 
-    )
+    ):(navigate("/home/login",null))
 }
 
 export default ReviewForm

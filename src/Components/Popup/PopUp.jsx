@@ -4,7 +4,7 @@ import { API_URL } from '../../config'
 
 const PopUp = () => {
     //set doctor id
-const [doctorId,setDoctor]=useState(null)
+    const [doctorId, setDoctor] = useState(null)
     //set booking id
     //get doctor from local storage
     const email = sessionStorage.getItem('email')
@@ -14,7 +14,7 @@ const [doctorId,setDoctor]=useState(null)
             method: 'GET',
         })
             .then(response => response.json())
-            .then(([data]) => {
+            .then((data) => {
                 localStorage.setItem('booking', JSON.stringify(data))
 
                 return data.doctorId
@@ -25,7 +25,7 @@ const [doctorId,setDoctor]=useState(null)
                     .then(response => response.json())
                     .then((data) => {
                         localStorage.setItem('doctor', JSON.stringify(data))
-                        
+
                     })
             }).catch(err => (err))
     }, [])
@@ -33,7 +33,7 @@ const [doctorId,setDoctor]=useState(null)
     const doctor = localStorage.getItem('doctor') !== "undefined" && JSON.parse(localStorage.getItem('doctor'))
     //get booking from local storage
     const booking = localStorage.getItem('booking') !== "undefined" && JSON.parse(localStorage.getItem('booking'))
-    return ( booking &&
+    return (booking &&
         <section className='app__pop-up'>
             <h3>Appointment Details</h3>
             <div className="app__pop-up--item">

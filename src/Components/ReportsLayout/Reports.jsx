@@ -5,7 +5,7 @@ const Reports = () => {
         <div style={{ border: "2px solid red", height: "900px" }} >
 
             <object
-                data="report.pdf"
+                data="/public/report.pdf"
                 type="application/pdf"
                 style={{
                     width: "100%",
@@ -17,7 +17,7 @@ const Reports = () => {
 
                 ><p>
                         Your browser does not support PDFs.
-                        <a href="report.pdf">Download the PDF</a>
+                        <a href="./../../assets/report.pdf">Download the PDF</a>
                     </p>
                 </iframe>
             </object>

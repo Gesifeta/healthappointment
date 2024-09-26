@@ -46,16 +46,11 @@ const Navbar = () => {
                                         onMouseLeave={() => setShowProfileMenu(false)}
                                     >
                                         <li>
-                                            <NavLink to={`/user/profile/${email}`} className="link-item">Profile</NavLink>
+                                            <NavLink to={`/home/user/profile/${email}`} className="link-item">Profile</NavLink>
                                         </li>
                                         <li>
                                             <NavLink to="/home/reports" className="link-item">Reports</NavLink>
                                         </li>
-
-                                        <li>
-                                            <NavLink to="/home/" className="link-item">Logout</NavLink>
-                                        </li>
-
                                     </ul>
                                 }
 
@@ -67,7 +62,7 @@ const Navbar = () => {
                                 localStorage.clear();
                                 setAuthToken(null);
                                 window.location.reload();
-                                navigate("/home/", { replace: true })
+                                navigate("/home", { replace: true })
                             }}>Logout</button> : <button className="link-item btn-primary" onClick={() => {
                                 navigate("/home/login", { replace: true })
 
