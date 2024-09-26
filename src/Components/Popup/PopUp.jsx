@@ -34,7 +34,6 @@ const [doctorId,setDoctor]=useState(null)
     //get booking from local storage
     const booking = localStorage.getItem('booking') !== "undefined" && JSON.parse(localStorage.getItem('booking'))
     return ( booking &&
-        doctor &&
         <section className='app__pop-up'>
             <h3>Appointment Details</h3>
             <div className="app__pop-up--item">

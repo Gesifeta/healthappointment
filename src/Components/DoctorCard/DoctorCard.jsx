@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import "./DoctorCard.css"
 import AppointmentForm from '../AppointmentForm/AppointmentForm'
 
-const DoctorCard = ({ doctor }) => {    
+const DoctorCard = ({ doctor }) => {
     //state to show appointment form
     const [showAppointemntForm, setShowAppointmentForm] = useState(false)
     const [cancelBooking, setCancelBooking] = useState(false)
@@ -15,11 +15,6 @@ const DoctorCard = ({ doctor }) => {
     const userToken = sessionStorage.getItem("token")
     //get email from local session storage
     const localBooking = localStorage.getItem("booking") !== "undefined" ? JSON.parse(localStorage.getItem("booking")) : localStorage.clear()
-    //delete booking
-    const deleteBooking = () => {
-        localStorage.removeItem("booking")
-        localStorage.removeItem("doctor")
-    }
     return (
         <>
             <div className="doctor-card">
@@ -40,16 +35,9 @@ const DoctorCard = ({ doctor }) => {
                     >{doctor._id == localBooking?.doctorId ? "Cancel appointment" : "Book Appointment Free"}</button>
                 </div>
             </div>
-            {showAppointemntForm && userToken ? (<div className="app__overlay" onClick={(event) => {
-                event.stopPropagation()
-                if (event.target.className === "app__overlay")
-                    event.target.style.display = "none"
-            }}>
-                <div className="app__modal">
-                    <AppointmentForm doctor={doctor}  cancelBooking={cancelBooking} />
-                </div>
-
-            </div>) : navigate("/home/login")}
+            {showAppointemntForm ?
+                <AppointmentForm doctor={doctor} cancelBooking={cancelBooking} />
+                : null}
         </>
     )
 }

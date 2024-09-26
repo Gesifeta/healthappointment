@@ -4,6 +4,8 @@
     left: 0;
     display: flex;
     position: absolute;
+    justify-content: center;
+    align-items: flex-start;
     min-height: 100%;
     background-color: #f5f3f370;
     min-width: 100vw;
@@ -15,7 +17,7 @@
     width: 30rem;
     background-color: #fff;
     z-index: 90;
-    margin-bottom: 6rem;
+    margin-bottom: 3rem;
 }
 
 .app__modal img {

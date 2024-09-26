@@ -255,10 +255,13 @@ router.post('/booking/new', async (req, res) => {
             doctorId,
             bookingType,
         });
-
+        //check if booking with doctor id arleady exist
+        const existingBooking = await Booking.findOne({ doctorId });
+        if (existingBooking && existingBooking.timeSlot === timeSlot) {
+            return res.status(403).json({ error: "Booking with this doctor already exists" });
+        }
         const updateBooking = await newBooking.save();
-
-        return res.json(updateBooking);
+            return res.json(updateBooking);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");

@@ -53,7 +53,7 @@ function ReviewForm() {
                             <td>{doctor.name}</td>
                             <td>{doctor.specialty}</td>
                             <td><button className='btn-primary' onClick={() => {
-                                if (!email) window.location.href = "home/login"
+                                if (!email) window.location.href = "/home/login"
                                 setShowFeedbackForm(!showFeedbackForm)
                                 setDoctorId(doctor._id)
                             }}
