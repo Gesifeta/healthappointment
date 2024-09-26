@@ -13,6 +13,8 @@ import LandingPage from './Components/Landing_Page/LandingPage.jsx'
 import PopUp from './Components/Popup/PopUp.jsx'
 import ReviewForm from './Components/ReviewForm/ReviewForm.jsx'
 import ProfileCard from './Components/ProfileCard/ProfileCard.jsx'
+import ReportForm from './Components/ReportsLayout/ReportsLayout.jsx'
+import Home from './Components/Home/Home.jsx'
 
 //create routes
 
@@ -20,50 +22,59 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
     children: [
       {
-        path: "/home",
-        element: <LandingPage />
+        path: "/home/landing",
+        element: <LandingPage />,
       },
       {
-        path: "/consultation",
+        path: "/home/consultation",
         element: <BookingConstultation />
       },
       {
-        path: "/login",
+        path: "/home/appointment",
+        element: <FindDoctorSearch/>
+      }
+      ,
+      {
+        path: "/home/login",
         element: <Login />,
       },
       {
-        path: "/register",
+        path: "/home/register",
         element: <SignUp />,
       },
       {
-        path: "/search/:bookingType",
+        path: "/home/search/:bookingType",
         element: <FindDoctorSearch />
       },
       {
-        path: "/appointment/:email",
+        path: "/home/appointment/:email",
         element: <AppointmentForm />
       },
       {
-        path: "/doctor/:id",
+        path: "/home/doctor/:id",
         element: <PopUp />
       },
       {
-        path: "/booking/:email",
+        path: "/home/booking/:email",
         element: <PopUp />
       },
       {
-        path: "/review/doctor",
+        path: "/home/review/doctor",
         element: <ReviewForm />
       },
       {
-        path: "/user/profile/:email",
+        path: "/home/user/profile/:email",
         element: <ProfileCard />
       },
       {
-        path: "/chat",
-        element: <h1>Chat</h1>
+        path: "/home/reports",
+        element: <ReportForm />
       }
 
     ],

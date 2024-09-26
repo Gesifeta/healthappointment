@@ -11,6 +11,8 @@ const DoctorCard = ({ doctor }) => {
     const navigate = useNavigate()
     //get isBooked from local session storage
     const localDoctor = localStorage.getItem("doctor") !== "undefined" ? JSON.parse(localStorage.getItem("doctor")) : localStorage.clear();
+    //get user authoriziation token from session storage
+    const userToken = sessionStorage.getItem("token")
     //get email from local session storage
     const localBooking = localStorage.getItem("booking") !== "undefined" ? JSON.parse(localStorage.getItem("booking")) : localStorage.clear()
     //delete booking
@@ -38,7 +40,7 @@ const DoctorCard = ({ doctor }) => {
                     >{doctor._id == localBooking?.doctorId ? "Cancel appointment" : "Book Appointment Free"}</button>
                 </div>
             </div>
-            {showAppointemntForm ? (<div className="app__overlay" onClick={(event) => {
+            {showAppointemntForm && userToken ? (<div className="app__overlay" onClick={(event) => {
                 event.stopPropagation()
                 if (event.target.className === "app__overlay")
                     event.target.style.display = "none"
@@ -47,7 +49,7 @@ const DoctorCard = ({ doctor }) => {
                     <AppointmentForm doctor={doctor}  cancelBooking={cancelBooking} />
                 </div>
 
-            </div>) : null}
+            </div>) : navigate("/home/login")}
         </>
     )
 }

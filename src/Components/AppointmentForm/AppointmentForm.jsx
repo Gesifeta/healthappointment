@@ -72,6 +72,7 @@ function AppointmentForm({ doctor, cancelBooking }) {
         }).then(res => res.json()).then(([data]) => setResult(data)).then(() => {
             localStorage.setItem("booking", JSON.stringify(result))
             sessionStorage.setItem("bookingId", JSON.stringify(result.doctorId))
+            setShowBookingForm(false)
 
         }).catch(err => (err))
     }

@@ -41,7 +41,7 @@ const ProfileCard = () => {
 
         }
         else {
-            window.location.href = "/login"
+            window.location.href = "/home/login"
         }
     }, [])
 
@@ -92,8 +92,9 @@ const ProfileCard = () => {
                             <button type="submit" className="btn-primary"
                                 onClick={() => setEditMode(true)}
                             >Edit</button>
-                            <button type="button" className="btn-secondary" onClick={() =>{ setShowModal(false)
-                                window.location.href="/home"
+                            <button type="button" className="btn-secondary" onClick={() => {
+                                setShowModal(false)
+                                window.location.href = "/home/home"
                             }}>Cancel</button>
                         </form>
                     ) : (

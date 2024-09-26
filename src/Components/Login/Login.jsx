@@ -11,7 +11,7 @@ const Login = () => {
 
 
   if (sessionStorage.getItem("auth-token")) {
-    navigate("/", { replace: true })
+    navigate("/home/", { replace: true })
   }
 
   const [user, setUser] = useState({
@@ -41,7 +41,7 @@ const Login = () => {
       sessionStorage.setItem('auth-token', json.authtoken)
       sessionStorage.setItem("email", user.email);
       sessionStorage.setItem("name", json.name);
-      navigate("/", { replace: true })
+      navigate("/home/", { replace: true })
     } else {
       alert("Invalid Credentials")
     }

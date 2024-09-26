@@ -42,7 +42,7 @@ const SignUp = () => {
       sessionStorage.setItem("email", member.email)
       sessionStorage.setItem("phone", member.phone);
       window.location.reload()
-      navigate("/", { replace: true })
+      navigate("/home/", { replace: true })
     }
     else {
       if (json.errors) {

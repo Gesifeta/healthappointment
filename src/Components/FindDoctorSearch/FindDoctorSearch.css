@@ -6,8 +6,11 @@
     margin: auto;
     max-width: 50%;
 }
-
+.app__doctor-search > img{
+    width: 100%;
+}
 .app__doctor-search .form-group.search {
+    margin-top: 1rem;
     display: flex;
     width: 100%;
 }

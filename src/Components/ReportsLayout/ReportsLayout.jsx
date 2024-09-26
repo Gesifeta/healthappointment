@@ -1,10 +1,12 @@
 
 import React, { useEffect, useState } from 'react'
-import './ReviewForm.css'
+import './ReportsLayout.css'
 import { API_URL } from '../../config';
-import FeedBack from './FeedBack';
+import { useNavigate } from 'react-router-dom';
 
-function ReviewForm() {
+
+function ReportForm() {
+    const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
     const [doctorId, setDoctorId] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
@@ -35,44 +37,34 @@ function ReviewForm() {
         fetchDoctors();
     }, []);
     return (
-        <div className='review-form'>
-            <h1>Review Doctors</h1>
+        <div className='report-form'>
+            <h1>Reports</h1>
             {/* display doctors on table */}
             <table>
                 <tbody>
                     <tr>
                         <th>S.NO</th>
-                        <th>Name</th>
-                        <th>Specialty</th>
-                        <th>Feedback</th>
-                        <th>Review given</th>
+                        <th>Doctor Name</th>
+                        <th>Doctor Specialty</th>
+                        <th>View Report</th>
+                        <th>Download Report</th>
                     </tr>
                     {doctors.map((doctor, index) => (
                         <tr key={index}>
                             <td>{index}</td>
                             <td>{doctor.name}</td>
                             <td>{doctor.specialty}</td>
-                            <td><button className='btn-primary' onClick={() => {
-                                if (!email) window.location.href = "home/login"
-                                setShowFeedbackForm(!showFeedbackForm)
-                                setDoctorId(doctor._id)
-                            }}
-                                style={{ backgroundColor: review?.doctorId === doctor._id ? "gray" : "blue" }}
-                                disabled={review?.doctorId === doctor._id}
-                            >Review</button></td>
-                            <td>{review?.doctorId === doctor._id && review?.feedback}</td>
+                            <td><button className='btn-primary' onClick={() => navigate("/home/reports", { replace: true })}
+                            > View Report</button></td>
+
+                            <td><button className='btn-primary'
+                            ><a href="./../assets/reports.pdf" target="_blank" rel="noopener noreferrer" download> View Report</a></button></td>
                         </tr>))}
                 </tbody>
             </table>
-
-            {/* feedback form */}
-            {showFeedbackForm && (
-
-                <FeedBack doctorId={doctorId} email={email} />
-            )}
         </div>
 
     )
 }
 
-export default ReviewForm
+export default ReportForm

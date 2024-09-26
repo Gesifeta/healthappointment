@@ -290,7 +290,6 @@ router.delete('/booking/delete/:doctorId', async (req, res) => {
 });
 //give review
 router.post('/review/new', async (req, res) => {
-    console.log(req.body);
     try {
         const { name, rating, feedback, doctorId, email } = req.body;
         const newReview = new Review({
