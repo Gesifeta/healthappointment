@@ -1,8 +1,7 @@
 import React from 'react'
-
 import "./SelfCheckup.css"
 
-const SelfCheckUp = () => {
+const SelfCheckup = () => {
     return (
         <section className="app__self-checkup">
             <h1>Health Self-Checks for Wellness Maintenance</h1>
@@ -52,4 +51,4 @@ const SelfCheckUp = () => {
     )
 }
 
-export default SelfCheckUp
+export default SelfCheckup

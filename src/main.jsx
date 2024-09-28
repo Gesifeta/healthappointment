@@ -15,12 +15,12 @@ import ReviewForm from './Components/ReviewForm/ReviewForm.jsx'
 import ProfileCard from './Components/ProfileCard/ProfileCard.jsx'
 import ReportForm from './Components/ReportsLayout/ReportsLayout.jsx'
 import Home from './Components/Home/Home.jsx'
-import SelfCheckUp from './Components/SelfCheckup/SelfCheckUp.jsx'
+import SelfCheckup from './Components/SelfCheckup/SelfCheckup.jsx'
 
 //create routes
 
 const router = createBrowserRouter([
- 
+
   {
     path: "/",
     element: <LandingPage />
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/home/self_checkup",
-        element: <SelfCheckUp />
+        element: <SelfCheckup />
       },
     ],
   },
