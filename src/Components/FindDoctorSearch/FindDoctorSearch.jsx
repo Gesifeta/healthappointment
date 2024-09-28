@@ -58,7 +58,7 @@ const FindDoctorSearch = () => {
         setSearchText(search);
 
     }
-    return authToken? (
+    return (
         <div className='app__doctor-search'>
             <h1>Find Your Doctor at Your Own Ease</h1>
             <img src="https://cdn.pixabay.com/photo/2021/11/20/03/16/doctor-6810750_1280.png" alt="search picture" />
@@ -99,7 +99,7 @@ const FindDoctorSearch = () => {
                 </div>
             </>
         </div>
-    ):(navigate("/home/login"),null)
+    )
 }
 
 export default FindDoctorSearch

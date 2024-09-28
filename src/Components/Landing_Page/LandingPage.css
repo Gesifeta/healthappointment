@@ -27,6 +27,7 @@
     background: linear-gradient(45deg, #2190FF 2.34%, #b673f8 100.78%);
     -webkit-background-clip: text;
     background-clip: text;
+    margin-bottom: 6rem;
     -webkit-text-fill-color: transparent;
 }
 
@@ -47,7 +48,6 @@
     width: 15%;
     margin-top: 15px;
 }
-
 .hero-section div:nth-child(2) {
     margin-top: 4rem;
 }
@@ -95,11 +95,9 @@ button {
     .hero-section h1 {
         text-align: center;
     }
-
     .hero-section {
         padding-top: 12rem;
     }
-
     .hero-section h4 {
         font-size: 21px;
         text-align: center;
@@ -116,7 +114,6 @@ button {
     }
 
 }
-
 @media screen and (max-width:400px) {
     .hero-section h1 {
         font-size: 35px;

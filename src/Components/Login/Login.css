@@ -6,7 +6,7 @@
     flex-direction: column;
     background-color: #fafaf7;
     gap: 2rem;
-    max-width: 70%;
+    max-width: 50%;
     border-radius: 6px;
     box-shadow: .25px 1px 1px 1px rgba(233, 230, 230, 0.46),
         .5px -1px 1px 1px rgba(206, 203, 203, 0.36),

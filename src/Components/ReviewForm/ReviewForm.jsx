@@ -5,12 +5,12 @@ import { API_URL } from '../../config';
 import FeedBack from './FeedBack';
 
 function ReviewForm() {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [doctors, setDoctors] = useState([]);
     const [doctorId, setDoctorId] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
     const email = sessionStorage.getItem("email")
-    
+
     useEffect(() => {
         //fetch reviews
         const fetchReviews = async () => {
@@ -35,7 +35,7 @@ function ReviewForm() {
         };
         fetchDoctors();
     }, []);
-    return email?(
+    return email && (
         <div className='review-form'>
             <h1>Review Doctors</h1>
             {/* display doctors on table */}
@@ -68,12 +68,10 @@ function ReviewForm() {
 
             {/* feedback form */}
             {showFeedbackForm && (
-
                 <FeedBack doctorId={doctorId} email={email} />
             )}
         </div>
-
-    ):(navigate("/home/login",null))
+    )
 }
 
 export default ReviewForm

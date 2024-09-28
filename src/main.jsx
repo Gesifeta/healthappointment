@@ -20,9 +20,10 @@ import SelfCheckUp from './Components/SelfCheckup/SelfCheckUp.jsx'
 //create routes
 
 const router = createBrowserRouter([
+ 
   {
     path: "/",
-    element: <App />,
+    element: <LandingPage />
   },
   {
     path: "/home",

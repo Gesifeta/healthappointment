@@ -42,7 +42,7 @@ const SignUp = () => {
       sessionStorage.setItem("email", member.email)
       sessionStorage.setItem("phone", member.phone);
       window.location.reload()
-      navigate("/home/", { replace: true })
+      navigate("/", { replace: true })
     }
     else {
       if (json.errors) {
@@ -123,7 +123,10 @@ const SignUp = () => {
             </div>
             <div className="btn-group">
               <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">Submit</button>
-              <button type="reset" className="btn btn-danger" onClick={() => setShowErr("")}>Reset</button>
+              <button type="reset" className="btn btn-danger" onClick={() => {
+                setShowErr("")
+                navigate("/", { replace: true })
+              }}>Reset</button>
             </div>
           </form>
         </div>

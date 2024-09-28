@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 import "./Login.css"
 import { API_URL } from "../../config"
@@ -41,7 +41,7 @@ const Login = () => {
       sessionStorage.setItem('auth-token', json.authtoken)
       sessionStorage.setItem("email", user.email);
       sessionStorage.setItem("name", json.name);
-      navigate("/home/", { replace: true })
+      navigate("/", { replace: true })
     } else {
       alert("Invalid Credentials")
     }
@@ -55,8 +55,8 @@ const Login = () => {
           <h1>Login In</h1>
         </div>
         <div className="login-text1" style={{ "textAlign": "left" }}>
-          Are you a new member? <span><a href="../Sign_Up/Sign_Up.html" style={{ "color": "#2190FF" }}> Sign Up
-            Here</a></span>
+          Are you a new member? <span><NavLink to="/sign_up" style={{ "color": "#2190FF" }}> Sign Up
+            Here</NavLink></span>
         </div>
         <div className="login-form">
           <form method="POST" onSubmit={handleSubmit}>
@@ -79,7 +79,7 @@ const Login = () => {
             <div className="btn-group">
               <button type="submit"
                 className="btn btn-primary mb-2 mr-1 waves-effect waves-light">Login</button>
-              <button type="reset" className="btn btn-danger ">Cancel</button>
+              <button type="reset" className="btn btn-danger " onClick={() => navigate("/", { replace: true })}>Cancel</button>
             </div>
           </form>
         </div>
