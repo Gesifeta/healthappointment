@@ -43,11 +43,11 @@ const FindDoctorSearch = () => {
             })
     }, [])
     useEffect(() => {
-        const filtered = specialties.filter(specialty => specialty.toLowerCase().includes(searchText.toLowerCase()))
+        const filtered = specialties.filter(specialty => specialty?.toLowerCase().includes(searchText?.toLowerCase()))
         setFilteredSpecialties(filtered)
     }, [searchText, doctors])
     useEffect(() => {
-        const filtered = doctors.filter(doctor => doctor.specialty.toLowerCase().includes(searchText.toLowerCase()))
+        const filtered = doctors.filter(doctor => doctor.specialty?.toLowerCase().includes(searchText?.toLowerCase()))
         setFilteredDoctors(filtered)
     }, [searchText, doctors])
     const handleSpecialtySearch = (e) => {
