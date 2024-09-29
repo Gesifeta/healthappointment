@@ -6,9 +6,11 @@
     margin: auto;
     max-width: 50%;
 }
-.app__doctor-search > img{
+
+.app__doctor-search>img {
     width: 100%;
 }
+
 .app__doctor-search .form-group.search {
     margin-top: 1rem;
     display: flex;
@@ -47,7 +49,6 @@
 .specialty-list {
     display: flex;
     padding: .12rem;
-    justify-content: ;
     justify-content: space-between;
     text-align: left;
     border-bottom: 1px solid #d4d4d4;
@@ -67,9 +68,16 @@
 
 
 .app__doctor-search--card {
-
     margin-top: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
+}
+
+@media screen and (max-width:600px) {
+    .app__doctor-search--card {
+        grid-template-columns: 1fr;
+        margin-top: 1rem;
+    }
+
 }
