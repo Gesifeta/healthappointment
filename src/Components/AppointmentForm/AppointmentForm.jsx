@@ -18,7 +18,7 @@ function AppointmentForm({ doctor, cancelBooking, bookingType }) {
     const userEmail = sessionStorage.getItem("email")
 
     for (let i = 0; i < 5; i++) {
-        rate.push(<span className='rating' key={i}>⭐</span>)
+        rate.push(<span className='rate' key={i}>⭐</span>)
     }
     const [booking, setBooking] = useState({
         firstName: "",
@@ -100,7 +100,7 @@ function AppointmentForm({ doctor, cancelBooking, bookingType }) {
                         <h2>{doctor?.name}</h2>
                         <h3>{doctor?.specialty}</h3>
                         <h3>{doctor?.experience} years of experence</h3>
-                        <p>Rating:{rate}</p>
+                        <h3>Rating: {rate}</h3>
                     </div>
                     <div >
                         <form method="POST" className="appointment-form" onSubmit={handleSubmit}>

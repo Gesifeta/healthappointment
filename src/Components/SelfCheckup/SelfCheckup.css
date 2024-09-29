@@ -26,7 +26,6 @@ li {
 .app__self-checkup--item {
     display: flex;
     align-items: flex-start;
-    max-width: 70%;
     gap: 2rem;
 }
 
