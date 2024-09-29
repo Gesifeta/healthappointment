@@ -7,7 +7,6 @@ const Setauthtoken = () => {
 
     useEffect(() => {
         if (!params.authtoken || params.authtoken === "") {  
-            console.log(params);
             navigate('/login');
         }
         else {

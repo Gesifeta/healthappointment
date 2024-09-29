@@ -14,7 +14,6 @@ function ReportForm() {
     const [doctorId, setDoctorId] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
     const email = sessionStorage.getItem("email")
-    console.log(email);
     useEffect(() => {
         //fetch reviews
         const fetchReviews = async () => {
@@ -59,15 +58,12 @@ function ReportForm() {
                             <td>{doctor.specialty}</td>
                             <td><button className='btn-primary' onClick={() => setShowReport(true)}
                             > View Report</button></td>
-
                             <td><button className='btn-primary'
                             ><a href="reports.pdf" target="_blank" rel="noopener noreferrer" download> View Report</a></button></td>
                         </tr>))}
                 </tbody>
             </table>
         </div>
-
     ):<Report doctorId={doctorId} showReport={showReport} setShowReport={setShowReport} />
 }
-
 export default ReportForm

@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import './BookingConsultation.css'
 function BookingConsultation() {
     const navigate = useNavigate()
-    const [email, setAuthToken] = useState(sessionStorage.getItem("email"))
-    console.log(email)
+    const email = sessionStorage.getItem("email");
     return (
         <section className='booking-consultation-container'>
             <h1>Best Services</h1>

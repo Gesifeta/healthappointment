@@ -16,8 +16,7 @@ const FindDoctorSearch = () => {
     const [filteredDoctors, setFilteredDoctors] = useState([])
     const [filteredSpecialties, setFilteredSpecialties] = useState([])
     const [searchText, setSearchText] = useState("")
-    //get authToken from session storage
-    const authToken = sessionStorage.getItem("auth-token")
+
     //get email from session storage
     const email = sessionStorage.getItem("email")
     useEffect(() => {
@@ -56,7 +55,6 @@ const FindDoctorSearch = () => {
         let search = event.target.textContent?.toLowerCase()
         // Handle doctor search logic here
         setSearchText(search);
-
     }
     return (
         <div className='app__doctor-search'>
