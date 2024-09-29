@@ -23,7 +23,7 @@ const Navbar = () => {
     return (
         <>
             <header className="app-header">
-                <img src={images.logoColor} alt="loyo logo" className="app-logo"  onClick={()=>navigate("/",{replace:true})}/>
+                <img src={images.logoColor} alt="loyo logo" className="app-logo" onClick={() => navigate("/", { replace: true })} />
                 <nav className="app-navbar">
                     {!showMenu ?
                         <div className="nav-menu--close" onClick={() => setShowMenu(!showMenu)}>
@@ -38,13 +38,13 @@ const Navbar = () => {
                                 <NavLink to="/" className="link-item">Home</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/home/appointment" className="link-item">Appointments</NavLink>
+                                <NavLink to={email ? "/home/appointment" : "/home/login"} className="link-item">Appointments</NavLink>
                             </li>
                             <li>
-                                <NavLink to="#healthblogs" className="link-item">Health Blogs</NavLink>
+                                <NavLink to="/" className="link-item">Health Blogs</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/home/reports" className="link-item">Reviews</NavLink>
+                                <NavLink to={email ? "/home/reports" : "/home/login"} className="link-item">Reviews</NavLink>
                             </li>
                             <li className="app__profile"
                                 onClick={() => setShowProfileMenu(!showProfileMenu)}
