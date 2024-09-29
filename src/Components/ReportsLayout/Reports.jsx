@@ -1,6 +1,5 @@
-import React from 'react'
-
 const Reports = () => {
+
     return (
         <div style={{ border: "2px solid red", height: "900px" }} >
 
@@ -14,7 +13,6 @@ const Reports = () => {
                 title="Embedded PDF Viewer"
             >
                 <iframe
-
                 ><p>
                         Your browser does not support PDFs.
                         <a href="/report.pdf">Download the PDF</a>

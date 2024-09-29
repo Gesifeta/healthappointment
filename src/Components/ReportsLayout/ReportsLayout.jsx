@@ -10,9 +10,8 @@ import Report from './Reports.jsx';
 function ReportForm() {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
-    const [showReport,setShowReport]=useState(false)
+    const [showReport, setShowReport] = useState(false)
     const [doctorId, setDoctorId] = useState('');
-    const [showFeedbackForm, setShowFeedbackForm] = useState(false);
     const email = sessionStorage.getItem("email")
     useEffect(() => {
         //fetch reviews
@@ -20,9 +19,7 @@ function ReportForm() {
 
             const res = await fetch(`${API_URL}/review/${email}`);
             const data = await res.json();
-
             if (data.length > 0) localStorage.setItem('review', JSON.stringify(...data));
-
         };
         fetchReviews();
     }, []);
@@ -38,7 +35,7 @@ function ReportForm() {
         };
         fetchDoctors();
     }, []);
-    return !showReport? (
+    return email ? (!showReport ? (
         <div className='report-form'>
             <h1>Reports</h1>
             {/* display doctors on table */}
@@ -64,6 +61,6 @@ function ReportForm() {
                 </tbody>
             </table>
         </div>
-    ):<Report doctorId={doctorId} showReport={showReport} setShowReport={setShowReport} />
+    ) : <Report doctorId={doctorId} showReport={showReport} setShowReport={setShowReport} />) : null
 }
 export default ReportForm

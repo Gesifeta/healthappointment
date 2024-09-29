@@ -44,7 +44,7 @@ const Navbar = () => {
                                 <NavLink to="#healthblogs" className="link-item">Health Blogs</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/home/review/doctor" className="link-item">Reviews</NavLink>
+                                <NavLink to="/home/reports" className="link-item">Reviews</NavLink>
                             </li>
                             <li className="app__profile"
                                 onClick={() => setShowProfileMenu(!showProfileMenu)}

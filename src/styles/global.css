@@ -22,17 +22,19 @@ form {
 a {
     text-decoration: none;
 }
-li a{
+
+li a {
     display: block;
-   width: 100%;
+    width: 100%;
 }
+
 li button {
     margin-top: 0;
     box-shadow: none;
 }
 
 button {
-    padding: .6rem 2rem;
+    padding: .25rem 1rem;
     border-radius: 5px;
     border: none;
     box-shadow: .25px 1px 1px 1px rgba(233, 230, 230, 0.46),
@@ -40,7 +42,6 @@ button {
         .5px 1px 1px 1px rgba(194, 192, 192, 0.16);
     cursor: pointer;
     text-wrap: nowrap;
-    font-weight: bold;
     margin: 1rem;
 }
 
