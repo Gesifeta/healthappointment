@@ -1,14 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 
 
 import './ReportsLayout.css'
 import { API_URL } from '../../config';
 import Report from './Reports.jsx';
+import Loading from '../Loading.jsx';
 
 
 function ReportForm() {
-    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true)
     const [doctors, setDoctors] = useState([]);
     const [showReport, setShowReport] = useState(false)
     const [doctorId, setDoctorId] = useState('');
@@ -19,23 +19,25 @@ function ReportForm() {
 
             const res = await fetch(`${API_URL}/review/${email}`);
             const data = await res.json();
-            if (data.length > 0) localStorage.setItem('review', JSON.stringify(...data));
+            if (data.length > 0) {
+                localStorage.setItem('review', JSON.stringify(...data))
+                setIsLoading(false)
+            }
         };
         fetchReviews();
     }, []);
-
-    const review = JSON.parse(localStorage.getItem('review'));
 
     //fetch doctors
     useEffect(() => {
         const fetchDoctors = async () => {
             const res = await fetch(`${API_URL}/user/search`);
             const data = await res.json();
+            setIsLoading(false)
             setDoctors(data);
         };
         fetchDoctors();
     }, []);
-    return email ? (!showReport ? (
+    return isLoading ? <Loading /> : doctors.length > 0 ? (!showReport ? (
         <div className='report-form'>
             <h1>Reports</h1>
             {/* display doctors on table */}

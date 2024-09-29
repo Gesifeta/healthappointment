@@ -18,6 +18,7 @@ const Navbar = () => {
         sessionStorage.getItem("auth-token"))
     const name = sessionStorage.getItem("name") !== "undefined" ? sessionStorage.getItem("name") : "";
     const email = sessionStorage.getItem("email") !== "undefined" ? sessionStorage.getItem("email") : "";
+    let isAuth = Boolean(email)
     const navigate = useNavigate();
 
     return (
@@ -37,14 +38,17 @@ const Navbar = () => {
                             <li>
                                 <NavLink to="/" className="link-item">Home</NavLink>
                             </li>
+                            {isAuth ? <>
+                                <li>
+                                    <NavLink to="/home/appointment" className="link-item">Appointments</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/home/reports" className="link-item">Reviews</NavLink>
+                                </li>
+                            </> : null
+                            }
                             <li>
-                                <NavLink to={email ? "/home/appointment" : "/home/login"} className="link-item">Appointments</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/" className="link-item">Health Blogs</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={email ? "/home/reports" : "/home/login"} className="link-item">Reviews</NavLink>
+                                <NavLink to="#healthblogs" className="link-item">Health Blogs</NavLink>
                             </li>
                             <li className="app__profile"
                                 onClick={() => setShowProfileMenu(!showProfileMenu)}

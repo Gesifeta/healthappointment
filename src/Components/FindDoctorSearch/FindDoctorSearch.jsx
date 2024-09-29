@@ -5,10 +5,11 @@ import { images } from "../../assets"
 import "./FindDoctorSearch.css"
 import { API_URL } from "../../config"
 import DoctorCard from "../DoctorCard/DoctorCard"
+import Loading from "../Loading"
 
 const FindDoctorSearch = () => {
-    const navigate=useNavigate()
-  const {bookingType}=useParams()
+    const [isLoading, setIsLoading] = useState(true)
+    const { bookingType } = useParams()
     const [isSearch, setIsSearch] = useState(false)
     const [specialties, setSpecialties] = useState([])
     const [doctors, setDoctors] = useState([])
@@ -26,7 +27,8 @@ const FindDoctorSearch = () => {
             .then(res => res.json())
             .then(data => {
                 setDoctors(data)
-                setSpecialties([...new Set(data.map(doctor => doctor.specialty))])
+                setSpecialties([...new Set(data.map(doctor => doctor.specialty))]);
+                setIsLoading(false)
             })
     }, [searchText])
     //fetch booking
@@ -37,6 +39,7 @@ const FindDoctorSearch = () => {
             .then(res => res.json())
             .then(data => {
                 setBooking(data)
+                setIsLoading(false)
             })
     }, [])
     useEffect(() => {
@@ -56,7 +59,7 @@ const FindDoctorSearch = () => {
         // Handle doctor search logic here
         setSearchText(search);
     }
-    return (
+    return isLoading ? <Loading /> : (
         <div className='app__doctor-search'>
             <h1>Find Your Doctor at Your Own Ease</h1>
             <img src="https://cdn.pixabay.com/photo/2021/11/20/03/16/doctor-6810750_1280.png" alt="search picture" />

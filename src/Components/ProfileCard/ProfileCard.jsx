@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { API_URL } from '../../config.js'
 import React from 'react'
+import Loading from '../Loading.jsx'
 
 const ProfileCard = () => {
+    const [isLoading, setIsLoading] = useState(true)
     const email = sessionStorage.getItem("email") !== null ?
         sessionStorage.getItem("email") : "";
     const authToken = sessionStorage.getItem("auth-token") !== null ?
@@ -36,12 +38,14 @@ const ProfileCard = () => {
                 .then(res => res.json())
                 .then(data => {
                     setUser({ ...data })
+                    setIsLoading(true)
                 })
                 .catch((err) => err);
 
         }
         else {
             window.location.href = "/home/login"
+            setIsLoading(true)
         }
     }, [])
 
@@ -65,6 +69,7 @@ const ProfileCard = () => {
         })
             .then(res => res.json())
             .then(data => {
+                setIsLoading(false)
                 setUserUpdateDetails({ ...data })
                 sessionStorage.setItem("name", userUpdateDetails.name)
                 window.location.reload();
@@ -73,7 +78,7 @@ const ProfileCard = () => {
             })
             .catch((err) => err);
     }
-    return showModal && (
+    return(showModal && (
         <div className='app__profile-form'>
             <div className="app__overlay">
                 <div className="app__modal">
@@ -116,16 +121,15 @@ const ProfileCard = () => {
                             <button type="submit" className="btn-primary">Save</button>
                             <button type="button" className="btn-secondary" onClick={() => {
                                 setShowModal(false)
-                                window.location.href="/";
+                                window.location.href = "/";
                             }}>Cancel</button>
                         </form>
                     )}
                     {/* user update form end */}
                 </div>
             </div>
-
         </div>
-    )
+    ))
 }
 
 export default ProfileCard

@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import './ReviewForm.css'
 import { API_URL } from '../../config';
 import FeedBack from './FeedBack';
+import Loading from '../Loading';
 
 function ReviewForm() {
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(true)
     const [doctors, setDoctors] = useState([]);
     const [doctorId, setDoctorId] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
@@ -32,10 +34,11 @@ function ReviewForm() {
             const res = await fetch(`${API_URL}/user/search`);
             const data = await res.json();
             setDoctors(data);
+            setIsLoading(false);
         };
         fetchDoctors();
     }, []);
-    return email && (
+    return (
         <div className='review-form'>
             <h1>Review Doctors</h1>
             {/* display doctors on table */}

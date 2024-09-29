@@ -3,12 +3,13 @@ import { NavLink, useNavigate } from "react-router-dom"
 
 import "./Login.css"
 import { API_URL } from "../../config"
+import Loading from "../Loading"
 
 
 
 const Login = () => {
   const navigate = useNavigate()
-
+  const [isLoading, setIsLoading] = useState(true)
 
   if (sessionStorage.getItem("auth-token")) {
     navigate("/home/", { replace: true })
@@ -38,6 +39,7 @@ const Login = () => {
     })
     let json = await response.json();
     if (json.authtoken) {
+      setIsLoading(false)
       sessionStorage.setItem('auth-token', json.authtoken)
       sessionStorage.setItem("email", user.email);
       sessionStorage.setItem("name", json.name);
