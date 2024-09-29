@@ -17,9 +17,6 @@ dotenv.config();
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-const PORT = process.env.PORT;
-
-
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -35,7 +32,7 @@ app.get('*', (req, res) => {
 });
 
 
-app.get('/', (req, res) => {
+app.get('/test', (req, res) => {
     res.send('Hello World!');
 });
 // Routes

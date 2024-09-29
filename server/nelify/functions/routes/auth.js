@@ -48,7 +48,6 @@ router.post('/register', [
     if (!error.isEmpty()) {
         return res.status(400).json({ error: error.array() });
     }
-
     try {
         const checkMultipleUser1 = await UserSchema.findOne({ email: req.body.email });
         if (checkMultipleUser1) {
@@ -79,9 +78,7 @@ router.post('/register', [
         console.error(error);
         return res.status(500).send("Internal Server Error");
     }
-
 });
-
 router.post('/login', [
     body('email', "Please Enter a Vaild Email").isEmail(),
 ], async (req, res) => {
@@ -90,7 +87,6 @@ router.post('/login', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
     try {
         const theUser = await UserSchema.findOne({ email: req.body.email }); // <-- Change req.body.username to req.body.name
 
@@ -117,15 +113,12 @@ router.post('/login', [
         return res.status(500).send("Internal Server Error");
     }
 });
-
-
 router.put('/update', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
     try {
         const { name } = req.body;
 
@@ -144,7 +137,6 @@ router.put('/update', [
                 id: updatedUser.id,
             },
         };
-
         const authtoken = jwt.sign(payload, process.env.JWT_SECRET);
         res.json({ authtoken });
     } catch (error) {
@@ -152,16 +144,13 @@ router.put('/update', [
         return res.status(500).send("Internal Server Error");
     }
 });
-
 // Route 4: Fetch user data based on the email: GET: http://localhost:8181/api/auth/user
 router.get('/user/profile/:email', async (req, res) => {
     try {
-
         const user = await UserSchema.findOne({ email: req.params.email });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
-
         // Send only the necessary user details to the client
         const userDetails = {
             id: user.id,
@@ -172,7 +161,6 @@ router.get('/user/profile/:email', async (req, res) => {
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
         };
-
         res.json(userDetails);
     } catch (error) {
         console.error(error);
@@ -187,7 +175,6 @@ router.patch('/user/update', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
     try {
         const { email, name, phone } = req.body;
         const existingUser = await UserSchema.findOne({ email });
@@ -196,13 +183,11 @@ router.patch('/user/update', [
             return res.status(404).json({ error: "User not found" });
         }
         const updatedUser = await UserSchema.updateOne({ email }, { $set: { name, phone, updatedAt: Date() } });
-
         const payload = {
             user: {
                 id: updatedUser.id,
             },
         };
-
         const authtoken = jwt.sign(payload, process.env.JWT_SECRET);
         res.json({ authtoken });
     } catch (error) {
@@ -233,7 +218,6 @@ router.get('/doctor/:id', async (req, res) => {
 });
 //fetch user by email
 router.get('/booking/:email', async (req, res) => {
-
     try {
         const booking = await Booking.findOne({ email: req.params.email });
         return res.json(booking);

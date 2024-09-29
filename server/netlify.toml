@@ -5,4 +5,9 @@
   force = true
   from = "/api/auth/*"
   status = 200
-  to = "/.netlify/functions/api/auth/:splat"
+  to = "/.netlify/functions/api/:splat"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false

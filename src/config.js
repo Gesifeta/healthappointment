@@ -1,1 +1,1 @@
-export const API_URL = "http://localhost:8181/api/auth"
+export const API_URL = "https://stayhealthyinc.netlify.app/api/auth/"
